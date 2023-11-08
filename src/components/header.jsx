@@ -1,27 +1,10 @@
 import { Link } from "react-router-dom";
 import NoUserDropdown from "./no-user-dropdown";
 
-// Render navbar menu
-const data = [
-  {
-    name: "Inicio",
-    path: "/",
-  },
-  {
-    name: "Adopción",
-    path: "/adoption",
-  },
-  {
-    name: "Login",
-    path: "/login",
-  },
-  {
-    name: "Registro",
-    path: "/register",
-  },
-];
+// Para cambiar links del header debe modificar archivos json de carpeta data
+import sections from "../data/header-sections.json";
 
-// Render navbar
+// Renderización del Header
 function Header() {
   return (
     <nav className="navbar pt-0 navbar-expand-lg bg-body-tertiary shadow">
@@ -57,7 +40,7 @@ function Header() {
           aria-labelledby="offcanvasNavbarLabel"
         >
           <ul className="col-6 navbar-nav mb-lg-0 nav-justified">
-            {data.map((item) => (
+            {sections.map((item) => (
               <li className="nav-item" key={item.name}>
                 <Link to={item.path} className="nav-link">
                   {item.name}

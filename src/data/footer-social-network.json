@@ -1,0 +1,32 @@
+[
+  {
+    "name": "Facebook",
+    "icon": "bi bi-facebook",
+    "link": "#"
+  },
+  {
+    "name": "Twitter",
+    "icon": "bi bi-twitter-x",
+    "link": "#"
+  },
+  {
+    "name": "Google",
+    "icon": "bi bi-google",
+    "link": "#"
+  },
+  {
+    "name": "Instagram",
+    "icon": "bi bi-instagram",
+    "link": "#"
+  },
+  {
+    "name": "Linkedin",
+    "icon": "bi bi-linkedin",
+    "link": "#"
+  },
+  {
+    "name": "Github",
+    "icon": "bi bi-github",
+    "link": "#"
+  }
+]

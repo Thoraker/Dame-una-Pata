@@ -1,33 +1,23 @@
 import { Link } from "react-router-dom";
 
+// Para cambiar links del footer debe modificar archivos json de carpeta data
+import socialNetworks from "../data/footer-social-network.json";
+import sections from "../data/footer-sections.json";
+import usefulLinks from "../data/footer-useful-links.json";
+
 function Footer() {
   return (
     <footer className="text-center bg-light text-lg-start text-muted">
       <section className="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
         <div className="me-5 d-none d-lg-block">
-          <span>Get connected with us on social networks:</span>
+          <span>Síguenos en nuestras redes sociales:</span>
         </div>
-
         <div>
-          <Link to="" className="me-4 text-reset">
-            <i className="bi bi-facebook"></i>
-          </Link>
-          <Link to="" className="me-4 text-reset">
-            <i className="bi bi-twitter-x"></i>
-          </Link>
-
-          <Link to="" className="me-4 text-reset">
-            <i className="bi bi-google"></i>
-          </Link>
-          <Link to="" className="me-4 text-reset">
-            <i className="bi bi-instagram"></i>
-          </Link>
-          <Link to="" className="me-4 text-reset">
-            <i className="bi bi-linkedin"></i>
-          </Link>
-          <Link to="" className="me-4 text-reset">
-            <i className="bi bi-github"></i>
-          </Link>
+          {socialNetworks.map(({ name, icon, link }) => (
+            <Link to={link} className="me-4 text-reset" key={name}>
+              <i className={icon}></i>
+            </Link>
+          ))}
         </div>
       </section>
 
@@ -36,92 +26,62 @@ function Footer() {
           <div className="row mt-3">
             <div className="col-3 col-lg-2 mx-auto mb-4">
               <h6 className="text-uppercase fw-bold mb-4">
-                <i className="bi bi-house-heart mx-3"></i>
+                <i className="bi bi-house-heart me-3"></i>
                 Dame una Pata
               </h6>
               <p>
-                Here you can use rows and columns to organize your footer
-                content. Lorem ipsum dolor sit amet, consectetur adipisicing
-                elit.
+                Nuestra misión cambiar vidas, darle un hogar a tu mascota, o
+                mascotas para tu hogar.
               </p>
             </div>
 
             <div className="col-2 mx-auto mb-4">
-              <h6 className="text-uppercase fw-bold mb-4">Products</h6>
-              <p>
-                <a href="#!" className="text-reset">
-                  Angular
-                </a>
-              </p>
-              <p>
-                <a href="#!" className="text-reset">
-                  React
-                </a>
-              </p>
-              <p>
-                <a href="#!" className="text-reset">
-                  Vue
-                </a>
-              </p>
-              <p>
-                <a href="#!" className="text-reset">
-                  Laravel
-                </a>
-              </p>
+              <h6 className="text-uppercase fw-bold mb-4">Secciones</h6>
+              {sections.map(({ name, link }) => (
+                <p key={name}>
+                  <Link to={link} className="text-reset">
+                    {name}
+                  </Link>
+                </p>
+              ))}
             </div>
 
             <div className="col-3 col-lg-2 mx-auto mb-4">
-              <h6 className="text-uppercase fw-bold mb-4">Useful links</h6>
-              <p>
-                <a href="#!" className="text-reset">
-                  Pricing
-                </a>
-              </p>
-              <p>
-                <a href="#!" className="text-reset">
-                  Settings
-                </a>
-              </p>
-              <p>
-                <a href="#!" className="text-reset">
-                  Orders
-                </a>
-              </p>
-              <p>
-                <a href="#!" className="text-reset">
-                  Help
-                </a>
-              </p>
+              <h6 className="text-uppercase fw-bold mb-4">Links Útiles</h6>
+              {usefulLinks.map(({ name, link }) => (
+                <p key={name}>
+                  <Link to={link} className="text-reset">
+                    {name}
+                  </Link>
+                </p>
+              ))}
             </div>
 
             <div className="col-4 col-lg-3 mx-auto mb-md-0 mb-4">
-              <h6 className="text-uppercase fw-bold mb-4">Contact</h6>
+              <h6 className="text-uppercase fw-bold mb-4">Contactos</h6>
               <p>
-                {/* <MDBIcon icon="home" className="me-2" /> */}
-                New York, NY 10012, US
+                <i className="bi bi-house me-3"></i>
+                Santiago, Región Metropolitana, Chile
               </p>
               <p>
-                {/* <MDBIcon icon="envelope" className="me-3" /> */}
+                <i className="bi bi-envelope me-3"></i>
                 info@example.com
               </p>
               <p>
-                {/* <MDBIcon icon="phone" className="me-3" /> + 01 234 567 88 */}
+                <i className="bi bi-phone me-3"></i>+ 56 9 1234 5678
               </p>
               <p>
-                {/* <MDBIcon icon="print" className="me-3" /> + 01 234 567 89 */}
+                <i className="bi bi-printer me-3"></i>+ 56 9 1234 5678
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      <div
-        className="text-center p-4"
-        style={{ backgroundColor: "rgba(0, 0, 0, 0.05)" }}
-      >
-        © 2021 Copyright:
-        <a className="text-reset fw-bold" href="https://mdbootstrap.com/">
-          MDBootstrap.com
+      <div className="text-center p-4 bg-secondary bg-opacity-25">
+        © 2023 Copyright: Realizado con
+        <a className="text-reset fw-bold ms-1" href="https://getbootstrap.com/">
+          Bootstrap
         </a>
       </div>
     </footer>
