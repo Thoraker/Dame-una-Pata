@@ -1,0 +1,50 @@
+import { Link } from "react-router-dom";
+import { useStore } from "zustand";
+
+const UserDropdown = () => {
+  const { user } = useStore((state) => state.user);
+  return (
+    <div className="dropdown">
+      <button
+        className="btn"
+        id="userButton"
+        type="button"
+        data-bs-toggle="dropdown"
+      >
+        <div className="col">
+          <img className="img-fluid" src={user.avatar} />
+        </div>
+      </button>
+
+      <ul className="dropdown-menu dropdown-menu-end">
+        <li>
+          <h5 className="dropdown-header">{user.user}</h5>
+        </li>
+        <li>
+          <Link className="dropdown-item" to="/user">
+            Mis Datos
+          </Link>
+        </li>
+        <li>
+          <Link className="dropdown-item" to="/user/pet">
+            Mis Mensajes
+          </Link>
+        </li>
+        <li>
+          <hr className="dropdown-divider" />
+        </li>
+        <li>
+          <a
+            href="/"
+            onClick={() => alert("Cerrando sesión")}
+            className="dropdown-item"
+          >
+            Cerrar sesión
+          </a>
+        </li>
+      </ul>
+    </div>
+  );
+};
+
+export default UserDropdown;

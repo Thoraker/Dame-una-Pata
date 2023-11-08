@@ -1,13 +1,16 @@
+import { Outlet } from "react-router-dom";
 import Container from "./components/container";
 import Header from "./components/header";
+import Footer from "./components/footer";
 
 function App() {
   return (
     <>
+      <Header />
       <Container>
-        <Header />
-        <h1>Dame una Pata</h1>
+        <Outlet />
       </Container>
+      <Footer />
     </>
   );
 }

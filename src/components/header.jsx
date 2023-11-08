@@ -1,8 +1,30 @@
 import { Link } from "react-router-dom";
+import NoUserDropdown from "./no-user-dropdown";
 
+// Render navbar menu
+const data = [
+  {
+    name: "Inicio",
+    path: "/",
+  },
+  {
+    name: "Adopción",
+    path: "/adoption",
+  },
+  {
+    name: "Login",
+    path: "/login",
+  },
+  {
+    name: "Registro",
+    path: "/register",
+  },
+];
+
+// Render navbar
 function Header() {
   return (
-    <nav className="navbar navbar-expand-lg bg-body-tertiary shadow rounded-bottom">
+    <nav className="navbar pt-0 navbar-expand-lg bg-body-tertiary shadow">
       <div className="container-fluid justify-content-between">
         <button
           className="navbar-toggler"
@@ -15,48 +37,37 @@ function Header() {
         >
           <span className="navbar-toggler-icon"></span>
         </button>
-        <div className="col d-flex text-center" id="logo">
+        <div className="d-flex text-center mx-5" id="logo">
           <Link
-            className="navbar-brand fst-italic m-3 mx-auto lh-1 text-wrap text-danger"
+            className="navbar-brand fst-italic mx-auto lh-1 text-wrap text-success"
             to="/"
           >
             <div className="flex-column">
-              <div className="fs-1 fw-bold">Dame</div>
-              <div className="fs-3">una Pata</div>
+              <div className="display-5 fw-bold">Dame</div>
+              <div className="fs-2 fw-semibold">una Pata</div>
             </div>
           </Link>
         </div>
         <div
-          className="offcanvas offcanvas-start"
+          className="offcanvas offcanvas-start mx-5 px-5"
+          data-bs-scroll="true"
+          data-bs-backdrop="false"
           tabIndex="-1"
           id="offcanvasNavbar"
           aria-labelledby="offcanvasNavbarLabel"
         >
-          <ul className="navbar-nav mb-lg-0 nav-justified ">
-            <li className="nav-item">
-              <Link to="/register" className="nav-link">
-                Regístrate
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link to="/adoption" className="nav-link">
-                Adopción
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link to="/foundations" className="nav-link">
-                Amigos
-              </Link>
-            </li>
-            <li className="nav-item"></li>
+          <ul className="col-6 navbar-nav mb-lg-0 nav-justified">
+            {data.map((item) => (
+              <li className="nav-item" key={item.name}>
+                <Link to={item.path} className="nav-link">
+                  {item.name}
+                </Link>
+              </li>
+            ))}
           </ul>
         </div>
-        <div className="col d-flex justify-content-end me-3">
-          {state.store.usuario.user !== "" ? (
-            <UserDropdown />
-          ) : (
-            <NoUserDropdown />
-          )}
+        <div className="justify-content-end">
+          <NoUserDropdown />
         </div>
       </div>
     </nav>
