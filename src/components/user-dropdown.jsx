@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
-import { useStore } from "zustand";
+import { useStoreUser } from "../context/user-data";
 
 const UserDropdown = () => {
-  const { user } = useStore((state) => state.user);
+  const user = useStoreUser((state) => state.user);
   return (
     <div className="dropdown">
       <button
@@ -12,13 +12,17 @@ const UserDropdown = () => {
         data-bs-toggle="dropdown"
       >
         <div className="col">
-          <img className="img-fluid" src={user.avatar} />
+          <img
+            className="img-fluid"
+            style={{ width: "auto", height: "55px" }}
+            src={user.avatar}
+          />
         </div>
       </button>
 
       <ul className="dropdown-menu dropdown-menu-end">
         <li>
-          <h5 className="dropdown-header">{user.user}</h5>
+          <h5 className="dropdown-header">{user.userName}</h5>
         </li>
         <li>
           <Link className="dropdown-item" to="/user">

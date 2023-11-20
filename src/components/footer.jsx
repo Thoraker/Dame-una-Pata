@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 
 // Para cambiar links del footer debe modificar archivos json de carpeta data
-import socialNetworks from "../components/data/footer-social-networks.json";
+import socialNetworks from "../components/data/footer-social-network.json";
 import sections from "../components/data/footer-sections.json";
 import usefulLinks from "../components/data/footer-useful-links.json";
 
