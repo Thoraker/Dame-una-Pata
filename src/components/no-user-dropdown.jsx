@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import Login from "./login";
 
 const NoUserDropdown = () => {
   return (
@@ -22,7 +23,7 @@ const NoUserDropdown = () => {
           <h5 className="dropdown-header">Ingreso</h5>
         </li>
         <li>
-          <h3>login</h3>
+          <Login />
         </li>
         <li>
           <Link className="dropdown-item" to="/register">
