@@ -4,7 +4,7 @@ function Home() {
   return (
     <>
       <div
-        className="p-5 text-center"
+        className="my-5 p-5 text-center rounded-4"
         style={{
           backgroundImage: "url('src/assets/perro_callejero21_9.jpg')",
           height: "400px",
@@ -23,8 +23,8 @@ function Home() {
         </div>
       </div>
 
-      <div className="row py-5">
-        <div className="col-8 ">
+      <div className="my-5 p-5 text-center bg-body-success rounded-4">
+        <div className="col">
           <News />
         </div>
       </div>

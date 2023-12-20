@@ -1,5 +1,5 @@
 import { Link, useRouteError } from "react-router-dom";
-import Container from "../components/container";
+import Container from "../components/ui/container";
 
 function Error() {
   const error = useRouteError();
