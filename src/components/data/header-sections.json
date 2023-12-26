@@ -8,11 +8,7 @@
     "path": "/adoption"
   },
   {
-    "name": "Login",
-    "path": "/login"
-  },
-  {
-    "name": "Registro",
-    "path": "/register"
+    "name": "Ingresar",
+    "path": "/auth"
   }
 ]

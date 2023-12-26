@@ -2,7 +2,10 @@ import { Form, Formik } from "formik";
 import * as Yup from "yup";
 import MyTextInput from "./formik-ui/text-input";
 
-function Login() {
+import avatar from "./data/avatars.json";
+import MySelect from "./formik-ui/select";
+
+function Register() {
   return (
     <>
       <Formik
@@ -15,6 +18,18 @@ function Login() {
           password: Yup.string()
             .max(15, "Must be 15 characters or less")
             .required("Required"),
+          email: Yup.string()
+            .email("Invalid email address")
+            .required("Required"),
+          firstName: Yup.string()
+            .min(3, "Debe tener 3 o mas caracteres")
+            .max(50, "Debe tener menos de 50 caracteres")
+            .required("Required"),
+          lastName: Yup.string()
+            .min(3, "Debe tener 3 o mas caracteres")
+            .max(50, "Debe tener menos de 50 caracteres")
+            .required("Required"),
+          avatar: Yup.string().oneOf(avatar.name).required("Required"),
         })}
         onSubmit={(values, { setSubmitting }) => {
           console.log("submit");
@@ -26,7 +41,7 @@ function Login() {
       >
         <Form>
           <div className="card">
-            <div className="card-header">Ingresa a tu cuenta</div>
+            <div className="card-header">Crea tu Cuenta</div>
             <div className="card-body">
               <MyTextInput
                 label="Nombre de Usuario"
@@ -35,11 +50,37 @@ function Login() {
                 placeholder="MiUsuario"
               />
               <MyTextInput
+                label="Correo"
+                name="email"
+                type="email"
+                placeholder="jane@formik.com"
+              />
+              <MyTextInput
                 label="Contraseña"
                 name="password"
                 type="password"
                 placeholder="Contraseña"
               />
+              <MyTextInput
+                label="Nombre"
+                name="firstName"
+                type="text"
+                placeholder="Nombre"
+              />
+              <MyTextInput
+                label="Apellido"
+                name="lastName"
+                type="text"
+                placeholder="Apellido"
+              />
+              <MySelect label="Avatar" name="avatar">
+                <option value="">Selecciona un avatar</option>
+                {avatar.map((avatar) => (
+                  <option key={avatar.name} value={avatar.url}>
+                    {avatar.name}
+                  </option>
+                ))}
+              </MySelect>
             </div>
             <div className="card-footer text-end">
               <button type="submit" className="btn btn-primary">
@@ -56,4 +97,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Register;

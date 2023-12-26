@@ -4,7 +4,7 @@ function Modal({ children, ...props }) {
   return (
     <>
       <div className="fixed-top d-block vh-100 vw-100 bg-dark bg-opacity-50 modal">
-        <div className="my-5 mx-auto" {...props}>
+        <div className="mt-5 justify-content-center d-flex" {...props}>
           {children}
         </div>
       </div>
