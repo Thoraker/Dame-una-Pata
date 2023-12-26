@@ -8,7 +8,7 @@ const MySelect = ({ label, ...props }) => {
       <label htmlFor={props.id || props.name}>{label}</label>
       <select className="form-select" {...field} {...props} />
       {meta.touched && meta.error ? (
-        <div className="error">{meta.error}</div>
+        <div className="text-danger">{meta.error}</div>
       ) : null}
     </div>
   );

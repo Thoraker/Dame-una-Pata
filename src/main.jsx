@@ -7,6 +7,7 @@ import Home from "./views/home.jsx";
 import Error from "./views/error.jsx";
 import AboutUs from "./views/about-us.jsx";
 import Auth from "./views/auth.jsx";
+import Adoption from "./views/adoption.jsx";
 
 const router = createBrowserRouter([
   {
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
       {
         path: "/auth",
         element: <Auth />,
+      },
+      {
+        path: "/adoption",
+        element: <Adoption />,
       },
     ],
   },

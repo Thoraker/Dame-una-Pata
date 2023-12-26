@@ -43,7 +43,7 @@ function Login() {
             </div>
             <div className="card-footer text-end">
               <button type="submit" className="btn btn-primary">
-                Submit
+                Enviar
               </button>
               <button type="button" className="btn btn-secondary">
                 Cerrar
