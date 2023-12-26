@@ -29,7 +29,7 @@ function Register() {
             .min(3, "Debe tener 3 o mas caracteres")
             .max(50, "Debe tener menos de 50 caracteres")
             .required("Required"),
-          avatar: Yup.string().oneOf(avatar.name).required("Required"),
+          avatar: Yup.string().oneOf(avatar).required("Required"),
         })}
         onSubmit={(values, { setSubmitting }) => {
           console.log("submit");
@@ -75,9 +75,9 @@ function Register() {
               />
               <MySelect label="Avatar" name="avatar">
                 <option value="">Selecciona un avatar</option>
-                {avatar.map((avatar) => (
-                  <option key={avatar.name} value={avatar.url}>
-                    {avatar.name}
+                {avatar.map((avatar, index) => (
+                  <option key={avatar} value={avatar}>
+                    {index + 1}
                   </option>
                 ))}
               </MySelect>
