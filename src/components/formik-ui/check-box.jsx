@@ -4,7 +4,7 @@ import { useField } from "formik";
 const MyCheckbox = ({ children, ...props }) => {
   const [field, meta] = useField({ ...props, type: "checkbox" });
   return (
-    <div>
+    <div className="mb-3">
       <label className="checkbox-input">
         <input type="checkbox" {...field} {...props} />
         {children}

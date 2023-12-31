@@ -9,7 +9,6 @@ import sections from "../components/data/header-sections.json";
 // Render del Header
 function Header() {
   const user = useStoreUser((state) => state.user);
-  console.log(user);
   return (
     <nav className="navbar pt-0 navbar-expand-lg bg-body-tertiary shadow">
       <div className="container-fluid justify-content-between">

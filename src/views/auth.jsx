@@ -6,11 +6,11 @@ function Auth() {
     <>
       <div className="card m-5">
         <div className="row">
-          <div className="col m-3">
+          <div className="col m-5">
             <Login />
           </div>
-          <div className="vr"></div>
-          <div className="col m-3">
+          <div className="vr p-0"></div>
+          <div className="col m-5">
             <Register />
           </div>
         </div>

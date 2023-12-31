@@ -8,6 +8,7 @@ import Error from "./views/error.jsx";
 import AboutUs from "./views/about-us.jsx";
 import Auth from "./views/auth.jsx";
 import Adoption from "./views/adoption.jsx";
+import Address from "./components/address-form.jsx";
 
 const router = createBrowserRouter([
   {
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
       {
         path: "/adoption",
         element: <Adoption />,
+      },
+      {
+        path: "/test",
+        element: <Address />,
       },
     ],
   },

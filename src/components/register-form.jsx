@@ -9,7 +9,15 @@ function Register() {
   return (
     <>
       <Formik
-        initialValues={{ email: "", password: "" }}
+        initialValues={{
+          userName: "",
+          password: "",
+          email: "",
+          firstName: "",
+          lastName: "",
+          avatar:
+            "https://res.cloudinary.com/dqehz6slh/image/upload/v1689374344/avm3mcl5uxg74y3jkcdu.png",
+        }}
         validationSchema={Yup.object({
           userName: Yup.string()
             .min(3, "Debe tener 3 o mas caracteres")
@@ -39,59 +47,64 @@ function Register() {
           }, 400);
         }}
       >
-        <Form>
-          <div className="card">
-            <div className="card-header">Crea tu Cuenta</div>
-            <div className="card-body">
-              <MyTextInput
-                label="Nombre de Usuario"
-                name="userName"
-                type="text"
-                placeholder="MiUsuario"
-              />
-              <MyTextInput
-                label="Correo"
-                name="email"
-                type="email"
-                placeholder="jane@formik.com"
-              />
-              <MyTextInput
-                label="Contraseña"
-                name="password"
-                type="password"
-                placeholder="Contraseña"
-              />
-              <MyTextInput
-                label="Nombre"
-                name="firstName"
-                type="text"
-                placeholder="Nombre"
-              />
-              <MyTextInput
-                label="Apellido"
-                name="lastName"
-                type="text"
-                placeholder="Apellido"
-              />
-              <MySelect label="Avatar" name="avatar">
-                <option value="">Selecciona un avatar</option>
-                {avatar.map((avatar, index) => (
-                  <option key={avatar} value={avatar}>
-                    {index + 1}
-                  </option>
-                ))}
-              </MySelect>
-            </div>
-            <div className="card-footer text-end">
-              <button type="submit" className="btn btn-primary">
-                Enviar
-              </button>
-              <button type="button" className="btn btn-secondary">
-                Cerrar
-              </button>
-            </div>
-          </div>
-        </Form>
+        {({ values }) => {
+          console.log(values);
+          return (
+            <Form>
+              <div className="card">
+                <div className="card-header text-center">Crea tu Cuenta</div>
+                <div className="card-body">
+                  <MyTextInput
+                    label="Nombre de Usuario"
+                    name="userName"
+                    type="text"
+                    placeholder="MiUsuario"
+                  />
+                  <MyTextInput
+                    label="Correo"
+                    name="email"
+                    type="email"
+                    placeholder="jane@formik.com"
+                  />
+                  <MyTextInput
+                    label="Contraseña"
+                    name="password"
+                    type="password"
+                    placeholder="Contraseña"
+                  />
+                  <MyTextInput
+                    label="Nombre"
+                    name="firstName"
+                    type="text"
+                    placeholder="Nombre"
+                  />
+                  <MyTextInput
+                    label="Apellido"
+                    name="lastName"
+                    type="text"
+                    placeholder="Apellido"
+                  />
+                  <MySelect label="Avatar" name="avatar">
+                    <option value="">Selecciona un avatar</option>
+                    {avatar.map((avatar, index) => (
+                      <option key={avatar} value={avatar}>
+                        {index + 1}
+                      </option>
+                    ))}
+                  </MySelect>
+                </div>
+                <div className="card-footer text-end">
+                  <button type="submit" className="btn btn-primary">
+                    Enviar
+                  </button>
+                  <button type="button" className="btn btn-secondary">
+                    Cerrar
+                  </button>
+                </div>
+              </div>
+            </Form>
+          );
+        }}
       </Formik>
     </>
   );

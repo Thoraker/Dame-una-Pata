@@ -24,33 +24,38 @@ function Login() {
           }, 400);
         }}
       >
-        <Form>
-          <div className="card">
-            <div className="card-header">Ingresa a tu cuenta</div>
-            <div className="card-body">
-              <MyTextInput
-                label="Nombre de Usuario"
-                name="userName"
-                type="text"
-                placeholder="MiUsuario"
-              />
-              <MyTextInput
-                label="Contraseña"
-                name="password"
-                type="password"
-                placeholder="Contraseña"
-              />
-            </div>
-            <div className="card-footer text-end">
-              <button type="submit" className="btn btn-primary">
-                Enviar
-              </button>
-              <button type="button" className="btn btn-secondary">
-                Cerrar
-              </button>
-            </div>
-          </div>
-        </Form>
+        {({ values }) => {
+          console.log(values);
+          return (
+            <Form>
+              <div className="card">
+                <div className="card-header text-center">Ingresa a tu cuenta</div>
+                <div className="card-body">
+                  <MyTextInput
+                    label="Nombre de Usuario"
+                    name="userName"
+                    type="text"
+                    placeholder="Usuario"
+                  />
+                  <MyTextInput
+                    label="Contraseña"
+                    name="password"
+                    type="password"
+                    placeholder="Contraseña"
+                  />
+                </div>
+                <div className="card-footer text-end">
+                  <button type="submit" className="btn btn-primary">
+                    Enviar
+                  </button>
+                  <button type="button" className="btn btn-secondary">
+                    Cerrar
+                  </button>
+                </div>
+              </div>
+            </Form>
+          );
+        }}
       </Formik>
     </>
   );
