@@ -1,9 +1,13 @@
+// Dependencias
 import { Form, Formik } from "formik";
 import * as Yup from "yup";
-import MyTextInput from "./formik-ui/text-input";
 
-import avatar from "./data/avatars.json";
+// Componentes
+import MyTextInput from "./formik-ui/text-input";
 import MySelect from "./formik-ui/select";
+
+// Importación de variables
+import avatar from "./data/avatars.json";
 
 function Register() {
   return (
