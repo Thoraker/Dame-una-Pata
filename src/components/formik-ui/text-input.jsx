@@ -4,13 +4,19 @@ import { useField } from "formik";
 function MyTextInput({ label, ...props }) {
   const [field, meta] = useField(props);
   return (
-    <div className="mb-3">
+    <div className="form-floating my-3">
+      <input
+        className="form-control"
+        {...field}
+        {...props}
+        autoComplete="on"
+        id={props.id || props.name}
+      />
       <label htmlFor={props.id || props.name} className="form-label">
         {label}
       </label>
-      <input className="form-control" {...field} {...props} />
       {meta.touched && meta.error ? (
-        <div className="text-danger">{meta.error}</div>
+        <div className="invalid-tooltip">{meta.error}</div>
       ) : null}
     </div>
   );
@@ -19,8 +25,8 @@ function MyTextInput({ label, ...props }) {
 export default MyTextInput;
 
 MyTextInput.propTypes = {
-  label: PropTypes.string.isRequired,
-  props: PropTypes.object.isRequired,
+  label: PropTypes.string,
+  props: PropTypes.object,
   id: PropTypes.string,
   name: PropTypes.string,
 };

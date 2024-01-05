@@ -8,8 +8,12 @@ import MySelect from "./formik-ui/select";
 
 // Importación de variables
 import avatar from "./data/avatars.json";
+import Card from "./ui/card";
 
 function Register() {
+  const registerCardProps = {
+    title: "Crea tu cuenta",
+  };
   return (
     <>
       <Formik
@@ -41,7 +45,9 @@ function Register() {
             .min(3, "Debe tener 3 o mas caracteres")
             .max(50, "Debe tener menos de 50 caracteres")
             .required("Required"),
-          avatar: Yup.string().oneOf(avatar).required("Required"),
+          avatar: Yup.string()
+            .oneOf(avatar, "Por favor selecciona un avatar")
+            .required("Required"),
         })}
         onSubmit={(values, { setSubmitting }) => {
           console.log("submit");
@@ -55,57 +61,77 @@ function Register() {
           console.log(values);
           return (
             <Form>
-              <div className="card">
-                <div className="card-header text-center">Crea tu Cuenta</div>
-                <div className="card-body">
-                  <MyTextInput
-                    label="Nombre de Usuario"
-                    name="userName"
-                    type="text"
-                    placeholder="MiUsuario"
-                  />
-                  <MyTextInput
-                    label="Correo"
-                    name="email"
-                    type="email"
-                    placeholder="jane@formik.com"
-                  />
-                  <MyTextInput
-                    label="Contraseña"
-                    name="password"
-                    type="password"
-                    placeholder="Contraseña"
-                  />
-                  <MyTextInput
-                    label="Nombre"
-                    name="firstName"
-                    type="text"
-                    placeholder="Nombre"
-                  />
-                  <MyTextInput
-                    label="Apellido"
-                    name="lastName"
-                    type="text"
-                    placeholder="Apellido"
-                  />
-                  <MySelect label="Avatar" name="avatar">
-                    <option value="">Selecciona un avatar</option>
-                    {avatar.map((avatar, index) => (
-                      <option key={avatar} value={avatar}>
-                        {index + 1}
-                      </option>
-                    ))}
-                  </MySelect>
-                </div>
-                <div className="card-footer text-end">
-                  <button type="submit" className="btn btn-primary">
-                    Enviar
-                  </button>
-                  <button type="button" className="btn btn-secondary">
-                    Cerrar
-                  </button>
-                </div>
-              </div>
+              <Card cardProps={registerCardProps}>
+                <div className="row">
+                  <div className="col-md-3 text-center">
+                    <img
+                      src={
+                        values.avatar ||
+                        "https://res.cloudinary.com/dqehz6slh/image/upload/v1689374344/avm3mcl5uxg74y3jkcdu.png"
+                      }
+                      className="img-fluid"
+                      alt={
+                        values.avatar ||
+                        "https://res.cloudinary.com/dqehz6slh/image/upload/v1689374344/avm3mcl5uxg74y3jkcdu.png"
+                      }
+                    />
+                    <MySelect label="Avatar" name="avatar">
+                      <option value="">Selecciona un avatar</option>
+                      {avatar.map((avatar, index) => (
+                        <option key={avatar} value={avatar}>
+                          {index + 1}
+                        </option>
+                      ))}
+                    </MySelect>
+                  </div>
+                  <div className="col-md-9">
+                    <MyTextInput
+                      label="Nombre de Usuario"
+                      name="userName"
+                      type="text"
+                      placeholder="MiUsuario"
+                    />
+                    <MyTextInput
+                      label="Contraseña"
+                      name="password"
+                      type="password"
+                      placeholder="Contraseña"
+                    />
+                    <MyTextInput
+                      label="Correo"
+                      name="email"
+                      type="email"
+                      placeholder="Correo"
+                    />
+                    <MyTextInput
+                      label="Nombre"
+                      name="firstName"
+                      type="text"
+                      placeholder="Nombre"
+                    />
+                    <MyTextInput
+                      label="Apellido"
+                      name="lastName"
+                      type="text"
+                      placeholder="Apellido"
+                    />
+                      </div>
+                    <div className="text-end">
+                      <button
+                        type="submit"
+                        className="btn btn-primary me-1 w-25"
+                      >
+                        Enviar
+                      </button>
+                      <button
+                        type="button"
+                        className="btn btn-secondary ms-1 w-25"
+                      >
+                        Cerrar
+                      </button>
+                    </div>
+                  </div>
+              </Card>
             </Form>
           );
         }}

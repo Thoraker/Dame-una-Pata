@@ -12,8 +12,7 @@ import Error from "./views/error.jsx";
 import AboutUs from "./views/about-us.jsx";
 import Auth from "./views/auth.jsx";
 import Adoption from "./views/adoption.jsx";
-// import Address from "./components/address-form.jsx";
-import CloudinaryUploadWidget from "./components/photo-uploader.jsx";
+import Login from "./components/login-form.jsx";
 
 const router = createBrowserRouter([
   {
@@ -39,7 +38,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/test",
-        element: <CloudinaryUploadWidget />,
+        element: <Login />,
       },
     ],
   },

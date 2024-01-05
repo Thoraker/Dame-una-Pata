@@ -4,13 +4,18 @@ import { useField } from "formik";
 const MyCheckbox = ({ children, ...props }) => {
   const [field, meta] = useField({ ...props, type: "checkbox" });
   return (
-    <div className="mb-3">
-      <label className="checkbox-input">
-        <input type="checkbox" {...field} {...props} />
+    <div className="my-3">
+      <label className="checkbox-input" htmlFor={props.id || props.name}>
+        <input
+          type="checkbox"
+          {...field}
+          {...props}
+          id={props.id || props.name}
+        />
         {children}
       </label>
       {meta.touched && meta.error ? (
-        <div className="text-danger">{meta.error}</div>
+        <div className="invalid-tooltip">{meta.error}</div>
       ) : null}
     </div>
   );
@@ -19,6 +24,8 @@ const MyCheckbox = ({ children, ...props }) => {
 export default MyCheckbox;
 
 MyCheckbox.propTypes = {
-  children: PropTypes.node.isRequired,
-  props: PropTypes.object.isRequired,
+  children: PropTypes.node,
+  props: PropTypes.object,
+  id: PropTypes.string,
+  name: PropTypes.string,
 };

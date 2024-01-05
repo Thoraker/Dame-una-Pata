@@ -4,11 +4,16 @@ import { useField } from "formik";
 const MySelect = ({ label, ...props }) => {
   const [field, meta] = useField(props);
   return (
-    <div className="mb-3">
+    <div className="form-floating my-3">
+      <select
+        className="form-select"
+        {...field}
+        {...props}
+        id={props.id || props.name}
+      />
       <label htmlFor={props.id || props.name}>{label}</label>
-      <select className="form-select" {...field} {...props} />
       {meta.touched && meta.error ? (
-        <div className="text-danger">{meta.error}</div>
+        <div className="invalid-tooltip">{meta.error}</div>
       ) : null}
     </div>
   );
@@ -17,8 +22,8 @@ const MySelect = ({ label, ...props }) => {
 export default MySelect;
 
 MySelect.propTypes = {
-  label: PropTypes.string.isRequired,
-  props: PropTypes.object.isRequired,
+  label: PropTypes.string,
+  props: PropTypes.object,
   id: PropTypes.string,
   name: PropTypes.string,
 };
