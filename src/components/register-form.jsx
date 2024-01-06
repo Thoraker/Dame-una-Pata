@@ -61,7 +61,7 @@ function Register() {
           console.log(values);
           return (
             <Form>
-              <Card cardProps={registerCardProps}>
+              <Card content={registerCardProps}>
                 <div className="row">
                   <div className="col-md-3 text-center">
                     <img
@@ -115,22 +115,19 @@ function Register() {
                       type="text"
                       placeholder="Apellido"
                     />
-                      </div>
-                    <div className="text-end">
-                      <button
-                        type="submit"
-                        className="btn btn-primary me-1 w-25"
-                      >
-                        Enviar
-                      </button>
-                      <button
-                        type="button"
-                        className="btn btn-secondary ms-1 w-25"
-                      >
-                        Cerrar
-                      </button>
-                    </div>
                   </div>
+                  <div className="text-end">
+                    <button type="submit" className="btn btn-primary me-1 w-25">
+                      Enviar
+                    </button>
+                    <button
+                      type="button"
+                      className="btn btn-secondary ms-1 w-25"
+                    >
+                      Cerrar
+                    </button>
+                  </div>
+                </div>
               </Card>
             </Form>
           );

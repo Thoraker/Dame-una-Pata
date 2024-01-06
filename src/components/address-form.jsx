@@ -4,8 +4,12 @@ import MyTextInput from "./formik-ui/text-input";
 import MySelect from "./formik-ui/select";
 import regionCommune from "./data/region-commune.json";
 import MyCheckbox from "./formik-ui/check-box";
+import Card from "./ui/card";
 
 function Address() {
+  const addressProps = {
+    tittle: "Ingresa a tu cuenta",
+  };
   return (
     <>
       <Formik
@@ -49,50 +53,48 @@ function Address() {
         {({ values }) => {
           return (
             <Form>
-              <div className="card">
-                <div className="card-header">Ingresa a tu cuenta</div>
-                <div className="card-body">
-                  <MyTextInput
-                    label="Calle"
-                    name="street"
-                    type="text"
-                    placeholder="Calle"
-                  />
-                  <MyTextInput
-                    label="Numero"
-                    name="buildingNumber"
-                    type="text"
-                    placeholder="000"
-                  />
-                  <MyTextInput
-                    label="Departamento"
-                    name="departmentNumber"
-                    type="text"
-                    placeholder="000"
-                  />
-                  <MySelect label="Región" name="region" id="region">
-                    <option value="">Selecciona tu Región</option>
-                    {regionCommune.map((reg) => (
-                      <option key={reg.region_number} value={reg.region_number}>
-                        {reg.region}
-                      </option>
-                    ))}
-                  </MySelect>
-                  <MySelect label="Comuna" name="commune">
-                    <option value="">Selecciona tu Comuna</option>
-                    {values.region &&
-                      regionCommune[parseInt(values.region) - 1].comunas.map(
-                        (comuna, index) => {
-                          return (
-                            <option key={index} value={comuna.code}>
-                              {comuna.name}
-                            </option>
-                          );
-                        }
-                      )}
-                  </MySelect>
-                  <MyCheckbox name="mainHouse">Residencia principal</MyCheckbox>
-                </div>
+              <Card content={addressProps}>
+                <MyTextInput
+                  label="Calle"
+                  name="street"
+                  type="text"
+                  placeholder="Calle"
+                />
+                <MyTextInput
+                  label="Numero"
+                  name="buildingNumber"
+                  type="text"
+                  placeholder="000"
+                />
+                <MyTextInput
+                  label="Departamento"
+                  name="departmentNumber"
+                  type="text"
+                  placeholder="000"
+                />
+                <MySelect label="Región" name="region" id="region">
+                  <option value="">Selecciona tu Región</option>
+                  {regionCommune.map((reg) => (
+                    <option key={reg.region_number} value={reg.region_number}>
+                      {reg.region}
+                    </option>
+                  ))}
+                </MySelect>
+                <MySelect label="Comuna" name="commune">
+                  <option value="">Selecciona tu Comuna</option>
+                  {values.region &&
+                    regionCommune[parseInt(values.region) - 1].comunas.map(
+                      (comuna, index) => {
+                        return (
+                          <option key={index} value={comuna.code}>
+                            {comuna.name}
+                          </option>
+                        );
+                      }
+                    )}
+                </MySelect>
+                <MyCheckbox name="mainHouse">Residencia principal</MyCheckbox>
+
                 <div className="card-footer text-end">
                   <button type="submit" className="btn btn-primary">
                     Enviar
@@ -101,7 +103,7 @@ function Address() {
                     Cerrar
                   </button>
                 </div>
-              </div>
+              </Card>
             </Form>
           );
         }}

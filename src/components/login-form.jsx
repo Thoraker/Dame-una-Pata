@@ -9,7 +9,7 @@ const tittle = { title: "Ingresa a tu cuenta" };
 function Login() {
   return (
     <>
-      <Modal className="col-lg-4">
+      <Modal modalClasses="col-lg-4">
         <Formik
           initialValues={{ userName: "", password: "" }}
           validationSchema={Yup.object({
@@ -33,7 +33,7 @@ function Login() {
             console.log(values);
             return (
               <Form>
-                <Card cardProps={tittle}>
+                <Card props={tittle}>
                   <MyTextInput
                     label="Nombre de Usuario"
                     name="userName"
