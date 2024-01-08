@@ -12,7 +12,7 @@ import Error from "./views/error.jsx";
 import AboutUs from "./views/about-us.jsx";
 import Auth from "./views/auth.jsx";
 import Adoption from "./views/adoption.jsx";
-import Login from "./components/login-form.jsx";
+import PetForm from "./components/pet-form.jsx";
 
 const router = createBrowserRouter([
   {
@@ -38,7 +38,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/test",
-        element: <Login />,
+        element: <PetForm />,
       },
     ],
   },

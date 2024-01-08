@@ -1,14 +1,14 @@
 [
   {
     "name": "Sobre Nosotros",
-    "link": "#"
+    "link": "about"
   },
   {
-    "name": "Preguntas Frecuentes",
-    "link": "#"
+    "name": "Regístrate",
+    "link": "/auth"
   },
   {
-    "name": "Términos y Condiciones",
-    "link": "#"
+    "name": "Adopción",
+    "link": "/adoption"
   }
 ]

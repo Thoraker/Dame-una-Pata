@@ -89,7 +89,7 @@ function Register() {
                       label="Nombre de Usuario"
                       name="userName"
                       type="text"
-                      placeholder="MiUsuario"
+                      placeholder="Usuario"
                     />
                     <MyTextInput
                       label="Contraseña"

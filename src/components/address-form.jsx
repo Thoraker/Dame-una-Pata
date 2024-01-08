@@ -8,12 +8,12 @@ import Card from "./ui/card";
 
 function Address() {
   const addressProps = {
-    tittle: "Ingresa a tu cuenta",
+    tittle: "Tu Dirección",
   };
   return (
     <>
       <Formik
-        initialValues={{
+        initialValues= {{
           street: "",
           buildingNumber: "",
           departmentNumber: "",
@@ -21,26 +21,26 @@ function Address() {
           commune: "",
           mainHouse: true,
         }}
-        validationSchema={Yup.object({
-          street: Yup.string()
-            .min(3, "Debe tener 3 o mas caracteres")
-            .max(100, "Debe tener menos de 100 caracteres")
-            .required("Required"),
-          buildingNumber: Yup.string()
-            .max(10, "Debe tener menos de 10 caracteres")
-            .required("Required"),
-          departmentNumber: Yup.string().max(
-            10,
-            "Debe tener menos de 10 caracteres"
-          ),
-          // .required("Required")
-          region: Yup.string()
-            .max(10, "Debe tener menos de 100 caracteres")
-            .required("Required"),
-          commune: Yup.string()
-            .max(100, "Debe tener menos de 100 caracteres")
-            .required("Required"),
-          mainHouse: Yup.boolean(),
+        validationSchema= {
+          Yup.object({
+            street: Yup.string()
+              .min(3, "Debe tener 3 o mas caracteres")
+              .max(100, "Debe tener menos de 100 caracteres")
+              .required("Obligatorio"),
+            buildingNumber: Yup.string()
+              .max(10, "Debe tener menos de 10 caracteres")
+              .required("Obligatorio"),
+            departmentNumber: Yup.string().max(
+              10,
+              "Debe tener menos de 10 caracteres"
+            ),
+            region: Yup.string()
+              .max(10, "Debe tener menos de 100 caracteres")
+              .required("Obligatorio"),
+            commune: Yup.string()
+              .max(100, "Debe tener menos de 100 caracteres")
+              .required("Obligatorio"),
+            mainHouse: Yup.boolean(),
         })}
         onSubmit={(values, { setSubmitting }) => {
           console.log("submit");

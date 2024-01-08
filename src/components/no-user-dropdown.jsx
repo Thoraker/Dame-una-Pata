@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 
 const NoUserDropdown = () => {
-  const [showLogin, setShowLogin] = useState(false);
+  const [        , setShowLogin] = useState(false);
 
   function handleLogin() {
     setShowLogin(!showLogin);

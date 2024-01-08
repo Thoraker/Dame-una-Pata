@@ -68,9 +68,9 @@ class Post(models.Model):
 class Pet(models.Model):
     name = models.CharField(max_length=50)
     specie = models.CharField(max_length=50)
-    age = models.IntegerField()
+    age = models.CharField(max_length=50)
     size = models.CharField(max_length=50)
-    for_adoption = models.BooleanField(default=False)
+    for_adoption = models.BooleanField(default=True)
     is_active = models.BooleanField(default=True)
     photos = models.ForeignKey(Photo, on_delete=models.CASCADE, null=True)
     posts = models.ForeignKey(Post, on_delete=models.CASCADE, null=True)

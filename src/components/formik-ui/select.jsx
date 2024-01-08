@@ -13,7 +13,7 @@ const MySelect = ({ label, ...props }) => {
       />
       <label htmlFor={props.id || props.name}>{label}</label>
       {meta.touched && meta.error ? (
-        <div className="invalid-tooltip">{meta.error}</div>
+        <div className="text-danger">{meta.error}</div>
       ) : null}
     </div>
   );
