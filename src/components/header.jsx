@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import NoUserDropdown from "./no-user-dropdown";
 import UserDropdown from "./user-dropdown";
-import { useStoreUser } from "../context/user-data";
+import { useStoreUser } from "../store/user-data";
 
 // Para cambiar links del header debe modificar archivos json de carpeta data
 import sections from "../components/data/header-sections.json";
@@ -43,10 +43,10 @@ function Header() {
           aria-labelledby="offcanvasNavbarLabel"
         >
           <ul className="col-6 navbar-nav mb-lg-0 nav-justified">
-            {sections.map((item) => (
-              <li className="nav-item" key={item.name}>
-                <Link to={item.path} className="nav-link">
-                  {item.name}
+            {sections.map(({name, to}) => (
+              <li className="nav-item" key={name}>
+                <Link to={to} className="nav-link">
+                  {name}
                 </Link>
               </li>
             ))}

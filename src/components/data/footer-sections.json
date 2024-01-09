@@ -1,14 +1,14 @@
 [
   {
     "name": "Sobre Nosotros",
-    "link": "about"
+    "to": "about"
   },
   {
     "name": "Regístrate",
-    "link": "/auth"
+    "to": "auth"
   },
   {
     "name": "Adopción",
-    "link": "/adoption"
+    "to": "adoption"
   }
 ]

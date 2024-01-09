@@ -13,8 +13,8 @@ function Footer() {
           <span>Síguenos en nuestras redes sociales:</span>
         </div>
         <div>
-          {socialNetworks.map(({ name, icon, link }) => (
-            <Link to={link} className="me-4 text-reset" key={name}>
+          {socialNetworks.map(({ name, icon, to }) => (
+            <Link to={to} className="me-4 text-reset" key={name}>
               <i className={icon}></i>
             </Link>
           ))}
@@ -37,9 +37,9 @@ function Footer() {
 
             <div className="col-2 mx-auto mb-4">
               <h6 className="text-uppercase fw-bold mb-4">Secciones</h6>
-              {sections.map(({ name, link }) => (
+              {sections.map(({ name, to }) => (
                 <p key={name}>
-                  <Link to={link} className="text-reset">
+                  <Link to={to} className="text-reset">
                     {name}
                   </Link>
                 </p>
@@ -48,9 +48,9 @@ function Footer() {
 
             <div className="col-3 col-lg-2 mx-auto mb-4">
               <h6 className="text-uppercase fw-bold mb-4">Links Útiles</h6>
-              {usefulLinks.map(({ name, link }) => (
+              {usefulLinks.map(({ name, to }) => (
                 <p key={name}>
-                  <Link to={link} className="text-reset">
+                  <Link to={to} className="text-reset">
                     {name}
                   </Link>
                 </p>

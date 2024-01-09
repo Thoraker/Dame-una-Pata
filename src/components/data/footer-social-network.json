@@ -2,31 +2,31 @@
   {
     "name": "Facebook",
     "icon": "bi bi-facebook",
-    "link": "#"
+    "to": "#"
   },
   {
     "name": "Twitter",
     "icon": "bi bi-twitter-x",
-    "link": "#"
+    "to": "#"
   },
   {
     "name": "Google",
     "icon": "bi bi-google",
-    "link": "#"
+    "to": "#"
   },
   {
     "name": "Instagram",
     "icon": "bi bi-instagram",
-    "link": "#"
+    "to": "#"
   },
   {
     "name": "Linkedin",
     "icon": "bi bi-linkedin",
-    "link": "#"
+    "to": "#"
   },
   {
     "name": "Github",
     "icon": "bi bi-github",
-    "link": "#"
+    "to": "#"
   }
 ]

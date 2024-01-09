@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useStoreUser } from "../context/user-data";
+import { useStoreUser } from "../store/user-data";
 
 const UserDropdown = () => {
   const user = useStoreUser((state) => state.user);

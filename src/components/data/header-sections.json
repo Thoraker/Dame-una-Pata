@@ -1,14 +1,14 @@
 [
   {
     "name": "Inicio",
-    "path": "/"
+    "to": "/"
   },
   {
     "name": "Adopción",
-    "path": "/adoption"
+    "to": "adoption"
   },
   {
     "name": "Ingresar",
-    "path": "/auth"
+    "to": "auth"
   }
 ]
