@@ -24,6 +24,9 @@ from server.api import views
 router = routers.DefaultRouter()
 router.register(r"users", views.UserViewSet)
 router.register(r"pets", views.PetViewSet)
+router.register(r"addresses", views.AddressViewSet)
+router.register(r"posts", views.PostViewSet)
+router.register(r"photos", views.PhotoViewSet)
 
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.

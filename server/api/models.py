@@ -100,7 +100,7 @@ class Photo(models.Model):
     url = models.CharField(max_length=150)
     is_active = models.BooleanField(default=True)
     post = models.ForeignKey("Post", on_delete=models.CASCADE, null=True)
-    petPhoto = models.ForeignKey("Pet", on_delete=models.CASCADE, null=True)
+    pet = models.ForeignKey("Pet", on_delete=models.CASCADE, null=True)
 
     def __str__(self):
         return f"{self.url}"
