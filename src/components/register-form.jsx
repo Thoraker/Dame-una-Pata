@@ -11,9 +11,10 @@ import avatar from "./data/avatars.json";
 import Card from "./ui/card";
 
 function Register() {
-  const registerCardProps = {
+  const cardAttributes = {
     title: "Crea tu cuenta",
   };
+
   return (
     <>
       <Formik
@@ -61,7 +62,7 @@ function Register() {
           console.log(values);
           return (
             <Form>
-              <Card content={registerCardProps}>
+              <Card title={cardAttributes.title}>
                 <div className="row">
                   <div className="col-md-3 text-center">
                     <img

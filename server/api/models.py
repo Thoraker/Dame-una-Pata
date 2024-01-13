@@ -69,7 +69,7 @@ class Address(models.Model):
     region = models.CharField(max_length=10)
     is_active = models.BooleanField(default=True)
     main_house = models.BooleanField(default=False)
-    homeOwner = models.ForeignKey(
+    home_owner = models.ForeignKey(
         User, related_name="addresses", on_delete=models.CASCADE, null=True
     )
 
@@ -84,8 +84,11 @@ class Address(models.Model):
 class Post(models.Model):
     message = models.CharField(max_length=100)
     is_active = models.BooleanField(default=True)
-    postedBy = models.ForeignKey(
-        User, related_name="posts", on_delete=models.CASCADE, null=True
+    user_post = models.ForeignKey(
+        User, related_name="post_users", on_delete=models.CASCADE, null=True
+    )
+    pet_post = models.ForeignKey(
+        Pet, related_name="post_pets", on_delete=models.CASCADE, null=True
     )
 
     def __str__(self):
@@ -99,8 +102,12 @@ class Post(models.Model):
 class Photo(models.Model):
     url = models.CharField(max_length=150)
     is_active = models.BooleanField(default=True)
-    post = models.ForeignKey("Post", on_delete=models.CASCADE, null=True)
-    pet = models.ForeignKey("Pet", on_delete=models.CASCADE, null=True)
+    post_photo = models.ForeignKey(
+        "Post", related_name="post_photos", on_delete=models.CASCADE, null=True
+    )
+    pet_photo = models.ForeignKey(
+        "Pet", related_name="pet_photos", on_delete=models.CASCADE, null=True
+    )
 
     def __str__(self):
         return f"{self.url}"

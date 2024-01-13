@@ -5,20 +5,17 @@ from .models import User, Pet, Address, Post, Photo
 class UserSerializer(serializers.ModelSerializer):
     pets = serializers.StringRelatedField(many=True)
     addresses = serializers.StringRelatedField(many=True)
-    posts = serializers.StringRelatedField(many=True)
+    post_users = serializers.StringRelatedField(many=True)
 
     class Meta:
         model = User
         fields = "__all__"
-        extra_kwargs = {
-            "password": {"write_only": True},
-            "is_active": {"write_only": True},
-            "is_staff": {"write_only": True},
-            "is_superuser": {"write_only": True},
-        }
 
 
 class PetSerializer(serializers.ModelSerializer):
+    post_pets = serializers.StringRelatedField(many=True)
+    pet_photos = serializers.StringRelatedField(many=True)
+
     class Meta:
         model = Pet
         fields = "__all__"
@@ -31,6 +28,8 @@ class AddressSerializer(serializers.ModelSerializer):
 
 
 class PostSerializer(serializers.ModelSerializer):
+    post_photos = serializers.StringRelatedField(many=True)
+
     class Meta:
         model = Post
         fields = "__all__"

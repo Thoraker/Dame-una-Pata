@@ -1,15 +1,15 @@
 import PropTypes from "prop-types";
 import Card from "./ui/card.jsx";
-import Carousel from "./";
+import Carousel from "./ui/carousel.jsx";
 
 function PetCard({ pet }) {
   return (
-    <>
-      <Card title={pet.name}>
-        <Carousel photos={pet.photos} />
-        <p>{pet.description}</p>
-      </Card>
-    </>
+    <Card title={pet.name} cardClass="col-lg-4">
+      <Carousel photos={pet.pet_photos} />
+      <p>{pet.specie}</p>
+      <p>{pet.age}</p>
+      <p>{pet.size}</p>
+    </Card>
   );
 }
 

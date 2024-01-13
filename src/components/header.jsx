@@ -10,7 +10,7 @@ import sections from "../components/data/header-sections.json";
 function Header() {
   const user = useStoreUser((state) => state.user);
   return (
-    <nav className="navbar pt-0 navbar-expand-lg bg-body-tertiary shadow">
+    <nav className="navbar navbar-expand-lg bg-body-tertiary shadow">
       <div className="container-fluid justify-content-between">
         <button
           className="navbar-toggler"
@@ -25,7 +25,7 @@ function Header() {
         </button>
         <div className="d-flex text-center mx-5" id="logo">
           <Link
-            className="navbar-brand fst-italic mx-auto lh-1 text-wrap text-success"
+            className="navbar-brand fst-italic m-auto lh-1 text-wrap text-success"
             to="/"
           >
             <div className="flex-column">
@@ -35,15 +35,15 @@ function Header() {
           </Link>
         </div>
         <div
-          className="offcanvas offcanvas-start mx-5 px-5"
+          className="offcanvas offcanvas-start"
           data-bs-scroll="true"
           data-bs-backdrop="false"
           tabIndex="-1"
           id="offcanvasNavbar"
           aria-labelledby="offcanvasNavbarLabel"
         >
-          <ul className="col-6 navbar-nav mb-lg-0 nav-justified">
-            {sections.map(({name, to}) => (
+          <ul className="col-8 mx-auto navbar-nav mb-lg-0 nav-justified">
+            {sections.map(({ name, to }) => (
               <li className="nav-item" key={name}>
                 <Link to={to} className="nav-link">
                   {name}
