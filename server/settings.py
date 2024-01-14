@@ -35,7 +35,7 @@ DEBUG = env.bool("DEBUG", default=False)
 ALLOWED_HOSTS = []
 
 CSRF_TRUSTED_ORIGINS = [
-    "https://8000-monospace-dame-una-pata-1703565154950.cluster-nxnw2gov3naqkvuxb437f67u5e.cloudworkstations.dev"
+    
 ]
 
 # Application definition

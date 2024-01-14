@@ -22,11 +22,11 @@ from server.api import views
 
 
 router = routers.DefaultRouter()
-router.register(r"users", views.UserViewSet)
-router.register(r"pets", views.PetViewSet)
-router.register(r"addresses", views.AddressViewSet)
-router.register(r"posts", views.PostViewSet)
-router.register(r"photos", views.PhotoViewSet)
+router.register(r"users", views.UserViewSet, "Users")
+router.register(r"pets", views.PetViewSet, "Pet")
+router.register(r"addresses", views.AddressViewSet, "Address")
+router.register(r"posts", views.PostViewSet, "Post")
+router.register(r"photos", views.PhotoViewSet, "Photo")
 
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.
@@ -36,4 +36,4 @@ urlpatterns = [
     path("api-auth/", include("rest_framework.urls", namespace="rest_framework")),
 ]
 
-urlpatterns += router.urls
+urlpatterns = router.urls
