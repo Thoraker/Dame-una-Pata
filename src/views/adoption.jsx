@@ -3,6 +3,7 @@ import PetCard from "../components/pet-card";
 import petsGroup from "../components/data/petsData.json";
 
 function Adoption() {
+  const { pets } = useStoreUser;
   return (
     <>
       <Container containerClasses="flex row">

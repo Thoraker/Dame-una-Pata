@@ -1,5 +1,6 @@
-from webbrowser import get
 from flask_sqlalchemy import SQLAlchemy
+from uuid import uuid4
+
 
 db = SQLAlchemy()
 
@@ -15,7 +16,7 @@ owners_pets = db.Table(
 # User Model
 class User(db.Model):
     __tablename__ = "users"
-    id = db.Column(db.String, primary_key=True, default=db.func.uuid())
+    id = db.Column(db.String, primary_key=True, default=uuid4())
     name = db.Column(db.String(80), unique=True, nullable=False)
     email = db.Column(db.String(250), unique=True, nullable=False)
     password = db.Column(db.String(250), nullable=False)
@@ -54,13 +55,16 @@ class User(db.Model):
             "is_admin": self.is_admin,
             "is_superuser": self.is_superuser,
             "created_at": self.created_at,
+            "pets": [pet.serialize() for pet in self.pets],  # type: ignore
+            "houses": [house.serialize() for house in self.houses],  # type: ignore
+            "posts": [post.serialize() for post in self.posts],  # type: ignore
         }
 
 
 # Pet Model
 class Pet(db.Model):
     __tablename__ = "pets"
-    id = db.Column(db.String, primary_key=True, default=db.func.uuid())
+    id = db.Column(db.String, primary_key=True, default=uuid4())
     name = db.Column(db.String(80), nullable=True)
     specie = db.Column(db.Integer, nullable=True)
     size = db.Column(db.Integer, nullable=True)
@@ -71,8 +75,8 @@ class Pet(db.Model):
     created_at = db.Column(db.DateTime, default=db.func.current_timestamp())
 
     owners = db.relationship("User", secondary=owners_pets, back_populates="pets")
-    photos = db.relationship("Photo", backref="pet_photo")
     posts = db.relationship("Post", backref="pet_post")
+    photos = db.relationship("Photo", backref="pet_photo")
 
     def __init__(self, name, specie, size, age, description, for_adoption):
         self.name = name
@@ -95,6 +99,7 @@ class Pet(db.Model):
             "description": self.description,
             "is_active": self.is_active,
             "for_adoption": self.for_adoption,
+            "photos": list(photo.serialize() for photo in self.photos),  # type: ignore
             "created_at": self.created_at,
         }
 
@@ -111,7 +116,7 @@ class Pet(db.Model):
 # Address Model
 class Address(db.Model):
     __tablename__ = "addresses"
-    id = db.Column(db.String, primary_key=True, default=db.func.uuid())
+    id = db.Column(db.String, primary_key=True, default=uuid4())
     street = db.Column(db.String(80))
     number = db.Column(db.Integer)
     department = db.Column(db.Integer, nullable=True)
@@ -151,7 +156,7 @@ class Address(db.Model):
 # Photo Model
 class Photo(db.Model):
     __tablename__ = "photos"
-    id = db.Column(db.String, primary_key=True, default=db.func.uuid())
+    id = db.Column(db.String, primary_key=True, default=uuid4())
     url = db.Column(db.String(250))
     pet_id = db.Column(db.String, db.ForeignKey("pets.id"))
 
