@@ -91,7 +91,7 @@ def register_user():
         or not data["last_name"]
     ):
         return jsonify({"response": "Faltan datos para el registro"}), 400
-    hashed_password = generate_password_hash(data["password"], method="sha256")
+    hashed_password = generate_password_hash(data["password"], method="scrypt")
     new_user = User(
         name=data["name"],
         email=data["email"],

@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 2c9adcd14291
+Revision ID: a5abedb6a772
 Revises: 
-Create Date: 2024-02-13 00:07:50.243815
+Create Date: 2024-02-23 22:03:42.850955
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '2c9adcd14291'
+revision = 'a5abedb6a772'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -31,14 +31,14 @@ def upgrade():
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('users',
-    sa.Column('id', sa.String(), nullable=False),
+    sa.Column('id', sa.String(length=80), nullable=False),
     sa.Column('name', sa.String(length=80), nullable=False),
     sa.Column('email', sa.String(length=250), nullable=False),
     sa.Column('password', sa.String(length=250), nullable=False),
     sa.Column('first_name', sa.String(length=150), nullable=False),
     sa.Column('last_name', sa.String(length=250), nullable=False),
     sa.Column('avatar', sa.String(length=250), nullable=True),
-    sa.Column('active', sa.Boolean(), nullable=True),
+    sa.Column('is_active', sa.Boolean(), nullable=True),
     sa.Column('is_admin', sa.Boolean(), nullable=True),
     sa.Column('is_superuser', sa.Boolean(), nullable=True),
     sa.Column('created_at', sa.DateTime(), nullable=True),
@@ -54,6 +54,7 @@ def upgrade():
     sa.Column('region', sa.Integer(), nullable=True),
     sa.Column('city', sa.Integer(), nullable=True),
     sa.Column('commune', sa.Integer(), nullable=True),
+    sa.Column('is_active', sa.Boolean(), nullable=True),
     sa.Column('owner_id', sa.String(), nullable=True),
     sa.ForeignKeyConstraint(['owner_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
@@ -68,6 +69,7 @@ def upgrade():
     op.create_table('photos',
     sa.Column('id', sa.String(), nullable=False),
     sa.Column('url', sa.String(length=250), nullable=True),
+    sa.Column('is_active', sa.Boolean(), nullable=True),
     sa.Column('pet_id', sa.String(), nullable=True),
     sa.ForeignKeyConstraint(['pet_id'], ['pets.id'], ),
     sa.PrimaryKeyConstraint('id')
@@ -76,6 +78,7 @@ def upgrade():
     sa.Column('id', sa.String(), nullable=False),
     sa.Column('reference_post_id', sa.Integer(), nullable=True),
     sa.Column('message', sa.String(length=500), nullable=False),
+    sa.Column('is_active', sa.Boolean(), nullable=True),
     sa.Column('pet_id', sa.String(), nullable=True),
     sa.Column('user_id', sa.String(), nullable=True),
     sa.ForeignKeyConstraint(['pet_id'], ['pets.id'], ),

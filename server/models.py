@@ -1,8 +1,13 @@
-from flask_sqlalchemy import SQLAlchemy
 from uuid import uuid4
+from flask_sqlalchemy import SQLAlchemy
 
 
 db = SQLAlchemy()
+
+
+def id_generator():
+    return uuid4()
+
 
 # Auxiliar table
 owners_pets = db.Table(
@@ -16,14 +21,14 @@ owners_pets = db.Table(
 # User Model
 class User(db.Model):
     __tablename__ = "users"
-    id = db.Column(db.String, primary_key=True, default=uuid4())
+    id = db.Column(db.String(80), primary_key=True, default=id_generator())
     name = db.Column(db.String(80), unique=True, nullable=False)
     email = db.Column(db.String(250), unique=True, nullable=False)
     password = db.Column(db.String(250), nullable=False)
     first_name = db.Column(db.String(150), nullable=False)
     last_name = db.Column(db.String(250), nullable=False)
     avatar = db.Column(db.String(250), nullable=True)
-    active = db.Column(db.Boolean, default=True)
+    is_active = db.Column(db.Boolean, default=True)
     is_admin = db.Column(db.Boolean, default=False)
     is_superuser = db.Column(db.Boolean, default=False)
     created_at = db.Column(db.DateTime, default=db.func.current_timestamp())
@@ -41,20 +46,16 @@ class User(db.Model):
         self.avatar = avatar
 
     def __repr__(self):
-        return f"<User {self.name} {self.first_name} {self.last_name} {self.active} {self.created_at}"
+        return f"<User {self.name} {self.first_name} {self.last_name} {self.is_active} {self.created_at}"
 
     def serialize(self):
         return {
-            "id": self.id,
             "name": self.name,
             "email": self.email,
             "first_name": self.first_name,
             "last_name": self.last_name,
             "avatar": self.avatar,
-            "active": self.active,
-            "is_admin": self.is_admin,
-            "is_superuser": self.is_superuser,
-            "created_at": self.created_at,
+            "is_active": self.is_active,
             "pets": [pet.serialize() for pet in self.pets],  # type: ignore
             "houses": [house.serialize() for house in self.houses],  # type: ignore
             "posts": [post.serialize() for post in self.posts],  # type: ignore
@@ -91,15 +92,14 @@ class Pet(db.Model):
 
     def serialize(self):
         return {
-            "id": self.id,
             "name": self.name,
             "specie": self.specie,
             "size": self.size,
             "age": self.age,
-            "description": self.description,
             "is_active": self.is_active,
+            "description": self.description,
             "for_adoption": self.for_adoption,
-            "photos": list(photo.serialize() for photo in self.photos),  # type: ignore
+            "photos": [photo.serialize() for photo in self.photos],  # type: ignore
             "created_at": self.created_at,
         }
 
@@ -123,6 +123,7 @@ class Address(db.Model):
     region = db.Column(db.Integer)
     city = db.Column(db.Integer)
     commune = db.Column(db.Integer)
+    is_active = db.Column(db.Boolean, default=True)
 
     owner_id = db.Column(db.String, db.ForeignKey("users.id"))
 
@@ -158,6 +159,7 @@ class Photo(db.Model):
     __tablename__ = "photos"
     id = db.Column(db.String, primary_key=True, default=uuid4())
     url = db.Column(db.String(250))
+    is_active = db.Column(db.Boolean, default=True)
     pet_id = db.Column(db.String, db.ForeignKey("pets.id"))
 
     def __init__(self, url):
@@ -170,6 +172,7 @@ class Photo(db.Model):
         return {
             "id": self.id,
             "url": self.url,
+            "is_active": self.is_active,
             "pet_id": self.pet_id,
         }
 
@@ -180,6 +183,7 @@ class Post(db.Model):
     id = db.Column(db.String, primary_key=True)
     reference_post_id = db.Column(db.Integer, unique=False, nullable=True)
     message = db.Column(db.String(500), unique=False, nullable=False)
+    is_active = db.Column(db.Boolean, default=True)
     pet_id = db.Column(db.String, db.ForeignKey("pets.id"))
     user_id = db.Column(db.String, db.ForeignKey("users.id"))
 
@@ -197,6 +201,7 @@ class Post(db.Model):
             "id": self.id,
             "reference_post_id": self.reference_post_id,
             "message": self.message,
+            "is_active": self.is_active,
             "pet_id": self.pet_id,
             "user_id": self.user_id,
         }
