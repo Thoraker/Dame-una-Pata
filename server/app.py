@@ -13,6 +13,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
 
+CORS(app)
 
 db_key = os.getenv("SECRET_KEY")
 db_url = os.getenv("DATABASE_URL")
@@ -118,7 +119,7 @@ def login_user():
             {"WWW.Authentication": 'Basic realm: "login required"'},
         )
 
-    user = User.query.filter_by(name=auth["user_name"]).first()
+    user = User.query.filter_by(name=auth["name"]).first()
     if not user:
         return make_response(
             {

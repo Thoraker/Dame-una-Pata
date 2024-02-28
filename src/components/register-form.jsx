@@ -9,17 +9,23 @@ import MySelect from "./formik-ui/select";
 // Importación de variables
 import avatar from "./data/avatars.json";
 import Card from "./ui/card";
+import { useStoreUser } from "../store/user-data";
+import { useNavigate } from "react-router-dom";
 
 function Register() {
   const cardAttributes = {
     title: "Crea tu cuenta",
   };
+  // const user = useStoreUser((state) => state.user);
+  const createUser = useStoreUser((state) => state.createUser);
+
+  const navigate = useNavigate();
 
   return (
     <>
       <Formik
         initialValues={{
-          userName: "",
+          user: "",
           password: "",
           email: "",
           firstName: "",
@@ -28,7 +34,7 @@ function Register() {
             "https://res.cloudinary.com/dqehz6slh/image/upload/v1689374344/avm3mcl5uxg74y3jkcdu.png",
         }}
         validationSchema={Yup.object({
-          userName: Yup.string()
+          user: Yup.string()
             .min(3, "Debe tener 3 o mas caracteres")
             .max(50, "Debe tener menos de 50 caracteres")
             .required("Required"),
@@ -50,12 +56,9 @@ function Register() {
             .oneOf(avatar, "Por favor selecciona un avatar")
             .required("Required"),
         })}
-        onSubmit={(values, { setSubmitting }) => {
-          console.log("submit");
-          setTimeout(() => {
-            alert(JSON.stringify(values, null, 2));
-            setSubmitting(false);
-          }, 400);
+        onSubmit={(values) => {
+          createUser(values);
+          navigate("/");
         }}
       >
         {({ values }) => {
@@ -88,7 +91,7 @@ function Register() {
                   <div className="col-md-9">
                     <MyTextInput
                       label="Nombre de Usuario"
-                      name="userName"
+                      name="user"
                       type="text"
                       placeholder="Usuario"
                     />

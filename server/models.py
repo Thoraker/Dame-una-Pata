@@ -5,10 +5,6 @@ from flask_sqlalchemy import SQLAlchemy
 db = SQLAlchemy()
 
 
-def id_generator():
-    return uuid4()
-
-
 # Auxiliar table
 owners_pets = db.Table(
     "owners_pets",
@@ -21,17 +17,17 @@ owners_pets = db.Table(
 # User Model
 class User(db.Model):
     __tablename__ = "users"
-    id = db.Column(db.String(80), primary_key=True, default=id_generator())
-    name = db.Column(db.String(80), unique=True, nullable=False)
-    email = db.Column(db.String(250), unique=True, nullable=False)
-    password = db.Column(db.String(250), nullable=False)
-    first_name = db.Column(db.String(150), nullable=False)
-    last_name = db.Column(db.String(250), nullable=False)
-    avatar = db.Column(db.String(250), nullable=True)
-    is_active = db.Column(db.Boolean, default=True)
-    is_admin = db.Column(db.Boolean, default=False)
-    is_superuser = db.Column(db.Boolean, default=False)
-    created_at = db.Column(db.DateTime, default=db.func.current_timestamp())
+    id: str = db.Column(db.String(80), primary_key=True, default=uuid4())
+    name: str = db.Column(db.String(80), unique=True, nullable=False)
+    email: str = db.Column(db.String(250), unique=True, nullable=False)
+    password: str = db.Column(db.String(250), nullable=False)
+    first_name: str = db.Column(db.String(150), nullable=False)
+    last_name: str = db.Column(db.String(250), nullable=False)
+    avatar: str = db.Column(db.String(250), nullable=True)
+    is_active: bool = db.Column(db.Boolean, default=True)
+    is_admin: bool = db.Column(db.Boolean, default=False)
+    is_superuser: bool = db.Column(db.Boolean, default=False)
+    created_at: str = db.Column(db.DateTime, default=db.func.current_timestamp())
 
     pets = db.relationship("Pet", secondary=owners_pets, back_populates="owners")
     houses = db.relationship("Address", backref="home_owner")
@@ -65,15 +61,15 @@ class User(db.Model):
 # Pet Model
 class Pet(db.Model):
     __tablename__ = "pets"
-    id = db.Column(db.String, primary_key=True, default=uuid4())
-    name = db.Column(db.String(80), nullable=True)
-    specie = db.Column(db.Integer, nullable=True)
-    size = db.Column(db.Integer, nullable=True)
-    age = db.Column(db.Integer, nullable=True)
-    description = db.Column(db.String(250), nullable=True)
-    is_active = db.Column(db.Boolean, default=True)
-    for_adoption = db.Column(db.Boolean, default=True)
-    created_at = db.Column(db.DateTime, default=db.func.current_timestamp())
+    id: str = db.Column(db.String, primary_key=True, default=uuid4())
+    name: str = db.Column(db.String(80), nullable=True)
+    specie: int = db.Column(db.Integer, nullable=True)
+    size: int = db.Column(db.Integer, nullable=True)
+    age: int = db.Column(db.Integer, nullable=True)
+    description: str = db.Column(db.String(250), nullable=True)
+    is_active: bool = db.Column(db.Boolean, default=True)
+    for_adoption: bool = db.Column(db.Boolean, default=True)
+    created_at: str = db.Column(db.DateTime, default=db.func.current_timestamp())
 
     owners = db.relationship("User", secondary=owners_pets, back_populates="pets")
     posts = db.relationship("Post", backref="pet_post")
@@ -116,14 +112,14 @@ class Pet(db.Model):
 # Address Model
 class Address(db.Model):
     __tablename__ = "addresses"
-    id = db.Column(db.String, primary_key=True, default=uuid4())
-    street = db.Column(db.String(80))
-    number = db.Column(db.Integer)
-    department = db.Column(db.Integer, nullable=True)
-    region = db.Column(db.Integer)
-    city = db.Column(db.Integer)
-    commune = db.Column(db.Integer)
-    is_active = db.Column(db.Boolean, default=True)
+    id: str = db.Column(db.String, primary_key=True, default=uuid4())
+    street: str = db.Column(db.String(80))
+    number: int = db.Column(db.Integer)
+    department: int = db.Column(db.Integer, nullable=True)
+    region: int = db.Column(db.Integer)
+    city: int = db.Column(db.Integer)
+    commune: int = db.Column(db.Integer)
+    is_active: bool = db.Column(db.Boolean, default=True)
 
     owner_id = db.Column(db.String, db.ForeignKey("users.id"))
 
@@ -157,10 +153,10 @@ class Address(db.Model):
 # Photo Model
 class Photo(db.Model):
     __tablename__ = "photos"
-    id = db.Column(db.String, primary_key=True, default=uuid4())
-    url = db.Column(db.String(250))
-    is_active = db.Column(db.Boolean, default=True)
-    pet_id = db.Column(db.String, db.ForeignKey("pets.id"))
+    id: str = db.Column(db.String, primary_key=True, default=uuid4())
+    url: str = db.Column(db.String(250))
+    is_active: bool = db.Column(db.Boolean, default=True)
+    pet_id: str = db.Column(db.String, db.ForeignKey("pets.id"))
 
     def __init__(self, url):
         self.url = url
@@ -180,12 +176,12 @@ class Photo(db.Model):
 # Post Model
 class Post(db.Model):
     __tablename__ = "posts"
-    id = db.Column(db.String, primary_key=True)
-    reference_post_id = db.Column(db.Integer, unique=False, nullable=True)
-    message = db.Column(db.String(500), unique=False, nullable=False)
-    is_active = db.Column(db.Boolean, default=True)
-    pet_id = db.Column(db.String, db.ForeignKey("pets.id"))
-    user_id = db.Column(db.String, db.ForeignKey("users.id"))
+    id: str = db.Column(db.String, primary_key=True)
+    reference_post_id: int = db.Column(db.Integer, unique=False, nullable=True)
+    message: str = db.Column(db.String(500), unique=False, nullable=False)
+    is_active: bool = db.Column(db.Boolean, default=True)
+    pet_id: str = db.Column(db.String, db.ForeignKey("pets.id"))
+    user_id: str = db.Column(db.String, db.ForeignKey("users.id"))
 
     answers = db.relationship("Pet", back_populates="posts")
 
