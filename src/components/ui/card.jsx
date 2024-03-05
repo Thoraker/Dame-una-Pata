@@ -13,18 +13,14 @@ import { Link } from "react-router-dom";
  */
 function Card({ children, cardClass, title, img, link, ...props }) {
   return (
-    <>
-      <div className={`card ${cardClass}`} {...props}>
-        <div className="card-header">
-          <div className="card-title">{title}</div>
-        </div>
-        <div className="card-body">
-          {img && <img src={img.url} className="card-img-top" alt={img.name} />}
-          <div className="card-text">{children}</div>
-          {link && <Link to={link.to}>{link.title}</Link>}
-        </div>
+    <div className={`card ${cardClass}`} {...props}>
+      {img && <img src={img.url} className="card-img-top" alt={img.name} />}
+      <div className="card-body">
+        <div className="card-title">{title}</div>
+        <div className="card-text">{children}</div>
+        {link && <Link to={link.to}>{link.title}</Link>}
       </div>
-    </>
+    </div>
   );
 }
 

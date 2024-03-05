@@ -8,15 +8,14 @@ function Auth() {
   };
 
   return (
-    <>
-      <Card title={cardAttributes.title}>
+    <div className="row m-3 gx-5">
+      <Card title={cardAttributes.title} cardClass={"col"}>
         <Register />
       </Card>
-
-      <Card title={cardAttributes.title}>
+      <Card title={cardAttributes.title} cardClass={"col"}>
         <Login />
       </Card>
-    </>
+    </div>
   );
 }
 
