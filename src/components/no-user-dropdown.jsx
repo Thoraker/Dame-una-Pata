@@ -1,13 +1,6 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
 
 const NoUserDropdown = () => {
-  const [        , setShowLogin] = useState(false);
-
-  function handleLogin() {
-    setShowLogin(!showLogin);
-  }
-
   return (
     <>
       <div className="dropdown">
@@ -30,9 +23,7 @@ const NoUserDropdown = () => {
             <h5 className="dropdown-header">Ingreso</h5>
           </li>
           <li>
-            <Link className="dropdown-item" onClick={handleLogin}>
-              Ingresa
-            </Link>
+            <Link className="dropdown-item">Ingresa</Link>
           </li>
           <li>
             <Link className="dropdown-item" to="/auth">

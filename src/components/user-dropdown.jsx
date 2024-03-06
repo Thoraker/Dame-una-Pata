@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
-import { useStoreUser } from "../store/user-data";
+import { useStore } from "../store/data-storage";
 
 const UserDropdown = () => {
-  const user = useStoreUser((state) => state.user);
+  const user = useStore((state) => state.user);
   return (
     <div className="dropdown">
       <button

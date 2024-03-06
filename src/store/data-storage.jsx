@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-export const useStoreUser = create((set) => ({
+export const useStore = create((set) => ({
   token: null,
   user: null,
 

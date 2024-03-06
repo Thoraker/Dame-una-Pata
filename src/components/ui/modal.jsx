@@ -15,7 +15,7 @@ function Modal({ children, modalClasses, ...props }) {
 export default Modal;
 
 Modal.propTypes = {
-  handleLogin: PropTypes.func.isRequired,
   children: PropTypes.node.isRequired,
   modalClasses: PropTypes.string,
+  props: PropTypes.object,
 };

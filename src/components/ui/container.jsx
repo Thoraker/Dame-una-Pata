@@ -13,4 +13,5 @@ export default Container;
 Container.propTypes = {
   children: PropTypes.node.isRequired,
   containerClasses: PropTypes.string,
+  props: PropTypes.object,
 };

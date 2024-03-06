@@ -1,14 +1,14 @@
 import { Link } from "react-router-dom";
 import NoUserDropdown from "./no-user-dropdown";
 import UserDropdown from "./user-dropdown";
-import { useStoreUser } from "../store/user-data";
+import { useStore } from "../store/data-storage";
 
 // Para cambiar links del header debe modificar archivos json de carpeta data
 import sections from "../components/data/header-sections.json";
 
 // Render del Header
 function Header() {
-  const user = useStoreUser((state) => state.user);
+  const user = useStore((state) => state.user);
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary shadow">
       <div className="container-fluid justify-content-between">

@@ -3,10 +3,10 @@ import * as Yup from "yup";
 import MyTextInput from "./formik-ui/text-input";
 import Card from "./ui/card";
 
-import { useStoreUser } from "../store/user-data";
+import { useStore } from "../store/data-storage";
 
 function Login() {
-  const { login } = useStoreUser();
+  const { login } = useStore();
 
   return (
     <>

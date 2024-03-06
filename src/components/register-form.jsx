@@ -9,15 +9,15 @@ import MySelect from "./formik-ui/select";
 // Importación de variables
 import avatar from "./data/avatars.json";
 import Card from "./ui/card";
-import { useStoreUser } from "../store/user-data";
+import { useStore } from "../store/data-storage";
 import { useNavigate } from "react-router-dom";
 
 function Register() {
   const cardAttributes = {
     title: "Crea tu cuenta",
   };
-  // const user = useStoreUser((state) => state.user);
-  const createUser = useStoreUser((state) => state.createUser);
+
+  const createUser = useStore((state) => state.createUser);
 
   const navigate = useNavigate();
 
