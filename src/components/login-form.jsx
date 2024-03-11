@@ -1,12 +1,15 @@
 import { Form, Formik } from "formik";
 import * as Yup from "yup";
 import MyTextInput from "./formik-ui/text-input";
-import Card from "./ui/card";
 
 import { useStore } from "../store/data-storage";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
-  const { login } = useStore();
+  const login = useStore((state) => state.login);
+  const user = useStore((state) => state.user);
+
+  const navigate = useNavigate();
 
   return (
     <>
@@ -22,32 +25,32 @@ function Login() {
             .required("Required"),
         })}
         onSubmit={(values) => {
-          login(values);
+          login(values)
+            .then(() => navigate("/"))
+            .then(() => console.log(user));
         }}
       >
         <Form>
-          <Card title="Ingresa a tu cuenta">
-            <MyTextInput
-              label="Nombre de Usuario"
-              name="user"
-              type="text"
-              placeholder="Usuario"
-            />
-            <MyTextInput
-              label="Contraseña"
-              name="password"
-              type="password"
-              placeholder="Contraseña"
-            />
-            <div className="text-end">
-              <button type="submit" className="btn btn-primary me-1 w-25">
-                Enviar
-              </button>
-              <button type="close" className="btn btn-secondary ms-1 w-25">
-                Cerrar
-              </button>
-            </div>
-          </Card>
+          <MyTextInput
+            label="Nombre de Usuario"
+            name="user"
+            type="text"
+            placeholder="Usuario"
+          />
+          <MyTextInput
+            label="Contraseña"
+            name="password"
+            type="password"
+            placeholder="Contraseña"
+          />
+          <div className="text-end">
+            <button type="submit" className="btn btn-primary me-1 w-25">
+              Enviar
+            </button>
+            <button type="close" className="btn btn-secondary ms-1 w-25">
+              Cerrar
+            </button>
+          </div>
         </Form>
       </Formik>
     </>

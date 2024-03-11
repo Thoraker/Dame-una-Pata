@@ -1,13 +1,14 @@
 import Container from "../components/ui/container";
 import PetCard from "../components/pet-card";
-import petsGroup from "../components/data/petsData.json";
+import { useStore } from "zustand";
 
 function Adoption() {
-  const { pets } = useStoreUser;
+  const pets = useStore((state) => state.pets);
+
   return (
     <>
       <Container containerClasses="flex row">
-        {petsGroup.results.map((pet, index) => (
+        {pets.map((pet, index) => (
           <PetCard pet={pet} key={index} />
         ))}
       </Container>

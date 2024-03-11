@@ -12,7 +12,6 @@ from utils import APIException, generate_sitemap
 from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
-
 CORS(app)
 
 db_key = os.getenv("SECRET_KEY")

@@ -22,7 +22,7 @@ const UserDropdown = () => {
 
       <ul className="dropdown-menu dropdown-menu-end">
         <li>
-          <h5 className="dropdown-header">{user.userName}</h5>
+          <h5 className="dropdown-header">{user.name}</h5>
         </li>
         <li>
           <Link className="dropdown-item" to="/user">

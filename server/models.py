@@ -183,7 +183,7 @@ class Post(db.Model):
     pet_id: str = db.Column(db.String, db.ForeignKey("pets.id"))
     user_id: str = db.Column(db.String, db.ForeignKey("users.id"))
 
-    answers = db.relationship("Pet", back_populates="posts")
+    # answers = db.relationship("Pet", back_populates="posts")
 
     def __init__(self, message, user_id):
         self.message = message

@@ -16,7 +16,7 @@ function Card({ children, cardClass, title, img, link, ...props }) {
     <div className={`card ${cardClass}`} {...props}>
       {img && <img src={img.url} className="card-img-top" alt={img.name} />}
       <div className="card-body">
-        <div className="card-title">{title}</div>
+        {title && <div className="card-title">{title}</div>}
         <div className="card-text">{children}</div>
         {link && <Link to={link.to}>{link.title}</Link>}
       </div>

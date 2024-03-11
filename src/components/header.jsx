@@ -9,6 +9,7 @@ import sections from "../components/data/header-sections.json";
 // Render del Header
 function Header() {
   const user = useStore((state) => state.user);
+  console.log(user);
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary shadow">
       <div className="container-fluid justify-content-between">
@@ -53,7 +54,7 @@ function Header() {
           </ul>
         </div>
         <div className="justify-content-end">
-          {user !== null ? <UserDropdown /> : <NoUserDropdown />}
+          {user !== undefined ? <UserDropdown /> : <NoUserDropdown />}
         </div>
       </div>
     </nav>

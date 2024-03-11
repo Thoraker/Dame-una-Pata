@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import News from "../components/news";
 
 function Home() {
@@ -18,9 +19,9 @@ function Home() {
             <h4 className="mb-3">
               Regístrate, adopta y cambia una vida... tu propia vida.
             </h4>
-            <button className="btn btn-outline-light btn-lg">
+            <Link to={"auth"} className="btn btn-outline-light btn-lg">
               Ingresa ahora
-            </button>
+            </Link>
           </div>
         </div>
       </div>
