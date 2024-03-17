@@ -44,7 +44,7 @@ def token_required(f):
             return jsonify({"response": "No tiene un token valido"}), 401
         try:
             data = jwt.decode(token, app.config["SECRET_KEY"], algorithms=["HS256"])
-            active_user = User.query.filter_by(public_id=data["public_id"]).first()
+            active_user = User.query.filter_by(id=data["id"]).first()
         except Exception as e:  # Capture the exception
             return jsonify({"response": "No tiene un token valido"}), 401
         return f(active_user, *args, **kwargs)
@@ -130,7 +130,7 @@ def login_user():
         token = jwt.encode(
             {
                 "id": user.id,
-                "exp": datetime.datetime.utcnow() + datetime.timedelta(minutes=30),
+                "exp": datetime.datetime.utcnow() + datetime.timedelta(minutes=60),
             },
             app.config["SECRET_KEY"],
         )
@@ -196,11 +196,11 @@ def manage_pet(active_user):
         specie=data["specie"],
         size=data["size"],
         age=data["age"],
-        description=data["description"],
+        message=data["message"],
         for_adoption=data["for_adoption"],
     )
     new_pet.add_owner(active_user)
-    new_post = Post(message=data["message"], user_id=active_user.id)
+    new_post = Post(message=data["message"], poster_id=active_user.id)
     new_pet.add_post(new_post)
     db.session.add(new_pet)
     db.session.commit()
@@ -243,7 +243,7 @@ def manage_post(active_user):
         return jsonify({"response": "Faltan datos"}), 404
     new_post = Post(
         message=data["message"],
-        user_id=active_user.id,
+        poster_id=active_user.id,
     )
     searched_pet = Pet.query.filter(Pet.id == data["pet_id"]).first()
     if not searched_pet:

@@ -31,7 +31,7 @@ class User(db.Model):
 
     pets = db.relationship("Pet", secondary=owners_pets, back_populates="owners")
     houses = db.relationship("Address", backref="home_owner")
-    posts = db.relationship("Post", backref="user_post")
+    posts = db.relationship("Post", backref="posted_by")
 
     def __init__(self, name, email, password, first_name, last_name, avatar):
         self.name = name
@@ -66,25 +66,25 @@ class Pet(db.Model):
     specie: int = db.Column(db.Integer, nullable=True)
     size: int = db.Column(db.Integer, nullable=True)
     age: int = db.Column(db.Integer, nullable=True)
-    description: str = db.Column(db.String(250), nullable=True)
+    message: str = db.Column(db.String(250), nullable=True)
     is_active: bool = db.Column(db.Boolean, default=True)
     for_adoption: bool = db.Column(db.Boolean, default=True)
     created_at: str = db.Column(db.DateTime, default=db.func.current_timestamp())
 
     owners = db.relationship("User", secondary=owners_pets, back_populates="pets")
-    posts = db.relationship("Post", backref="pet_post")
-    photos = db.relationship("Photo", backref="pet_photo")
+    posts = db.relationship("Post", backref="comments")
+    photos = db.relationship("Photo", backref="portfolio")
 
-    def __init__(self, name, specie, size, age, description, for_adoption):
+    def __init__(self, name, specie, size, age, message, for_adoption):
         self.name = name
         self.specie = specie
         self.size = size
         self.age = age
-        self.description = description
+        self.message = message
         self.for_adoption = for_adoption
 
     def __repr__(self):
-        return f"<Pet {self.name} {self.specie} {self.description} {self.is_active} {self.for_adoption} {self.created_at}"
+        return f"<Pet {self.name} {self.specie} {self.message} {self.is_active} {self.for_adoption} {self.created_at}"
 
     def serialize(self):
         return {
@@ -93,7 +93,7 @@ class Pet(db.Model):
             "size": self.size,
             "age": self.age,
             "is_active": self.is_active,
-            "description": self.description,
+            "message": self.message,
             "for_adoption": self.for_adoption,
             "photos": [photo.serialize() for photo in self.photos],  # type: ignore
             "created_at": self.created_at,
@@ -120,8 +120,7 @@ class Address(db.Model):
     city: int = db.Column(db.Integer)
     commune: int = db.Column(db.Integer)
     is_active: bool = db.Column(db.Boolean, default=True)
-
-    owner_id = db.Column(db.String, db.ForeignKey("users.id"))
+    owner_id: str = db.Column(db.String, db.ForeignKey("users.id"))
 
     def __init__(self, street, number, department, region, city, commune, owner_id):
         self.street = street
@@ -181,16 +180,14 @@ class Post(db.Model):
     message: str = db.Column(db.String(500), unique=False, nullable=False)
     is_active: bool = db.Column(db.Boolean, default=True)
     pet_id: str = db.Column(db.String, db.ForeignKey("pets.id"))
-    user_id: str = db.Column(db.String, db.ForeignKey("users.id"))
+    poster_id: str = db.Column(db.String, db.ForeignKey("users.id"))
 
-    # answers = db.relationship("Pet", back_populates="posts")
-
-    def __init__(self, message, user_id):
+    def __init__(self, message, poster_id):
         self.message = message
-        self.user_id = user_id
+        self.poster_id = poster_id
 
     def __repr__(self):
-        return f'Post("{self.message}","{self.pet_id}, "{self.user_id}")'
+        return f'Post("{self.message}","{self.pet_id}, "{self.poster_id}")'
 
     def serialize(self):
         return {
@@ -199,5 +196,5 @@ class Post(db.Model):
             "message": self.message,
             "is_active": self.is_active,
             "pet_id": self.pet_id,
-            "user_id": self.user_id,
+            "poster_id": self.poster_id,
         }
