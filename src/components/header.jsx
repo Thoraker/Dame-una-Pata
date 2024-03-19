@@ -54,7 +54,7 @@ function Header() {
           </ul>
         </div>
         <div className="justify-content-end">
-          {user !== undefined ? <UserDropdown /> : <NoUserDropdown />}
+          {user !== null ? <UserDropdown /> : <NoUserDropdown />}
         </div>
       </div>
     </nav>

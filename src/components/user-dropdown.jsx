@@ -3,6 +3,7 @@ import { useStore } from "../store/data-storage";
 
 const UserDropdown = () => {
   const user = useStore((state) => state.user);
+
   return (
     <div className="dropdown">
       <button

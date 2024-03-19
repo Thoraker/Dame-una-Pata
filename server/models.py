@@ -17,7 +17,7 @@ owners_pets = db.Table(
 # User Model
 class User(db.Model):
     __tablename__ = "users"
-    id: str = db.Column(db.String(80), primary_key=True, default=uuid4())
+    id: str = db.Column(db.String, primary_key=True, default=uuid4())
     name: str = db.Column(db.String(80), unique=True, nullable=False)
     email: str = db.Column(db.String(250), unique=True, nullable=False)
     password: str = db.Column(db.String(250), nullable=False)
@@ -96,6 +96,7 @@ class Pet(db.Model):
             "message": self.message,
             "for_adoption": self.for_adoption,
             "photos": [photo.serialize() for photo in self.photos],  # type: ignore
+            "posts": [post.serialize() for post in self.posts],  # type: ignore
             "created_at": self.created_at,
         }
 
@@ -121,6 +122,7 @@ class Address(db.Model):
     commune: int = db.Column(db.Integer)
     is_active: bool = db.Column(db.Boolean, default=True)
     owner_id: str = db.Column(db.String, db.ForeignKey("users.id"))
+    created_at: str = db.Column(db.DateTime, default=db.func.current_timestamp())
 
     def __init__(self, street, number, department, region, city, commune, owner_id):
         self.street = street
@@ -156,6 +158,7 @@ class Photo(db.Model):
     url: str = db.Column(db.String(250))
     is_active: bool = db.Column(db.Boolean, default=True)
     pet_id: str = db.Column(db.String, db.ForeignKey("pets.id"))
+    created_at: str = db.Column(db.DateTime, default=db.func.current_timestamp())
 
     def __init__(self, url):
         self.url = url
@@ -175,16 +178,18 @@ class Photo(db.Model):
 # Post Model
 class Post(db.Model):
     __tablename__ = "posts"
-    id: str = db.Column(db.String, primary_key=True)
-    reference_post_id: int = db.Column(db.Integer, unique=False, nullable=True)
+    id: str = db.Column(db.String, primary_key=True, default=uuid4())
+    reference_post_id: str = db.Column(db.String(80), unique=False, nullable=True)
     message: str = db.Column(db.String(500), unique=False, nullable=False)
     is_active: bool = db.Column(db.Boolean, default=True)
     pet_id: str = db.Column(db.String, db.ForeignKey("pets.id"))
     poster_id: str = db.Column(db.String, db.ForeignKey("users.id"))
+    created_at: str = db.Column(db.DateTime, default=db.func.current_timestamp())
 
-    def __init__(self, message, poster_id):
+    def __init__(self, message, poster_id, reference_post_id):
         self.message = message
         self.poster_id = poster_id
+        self.reference_post_id = reference_post_id
 
     def __repr__(self):
         return f'Post("{self.message}","{self.pet_id}, "{self.poster_id}")'

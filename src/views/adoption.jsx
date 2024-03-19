@@ -1,6 +1,6 @@
+import { useStore } from "../store/data-storage";
 import Container from "../components/ui/container";
 import PetCard from "../components/pet-card";
-import { useStore } from "zustand";
 
 function Adoption() {
   const pets = useStore((state) => state.pets);

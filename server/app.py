@@ -3,12 +3,11 @@ import datetime
 from functools import wraps
 from flask import Flask, jsonify, make_response, request
 from flask_cors import CORS
-from flask_migrate import Migrate
-from flask_sqlalchemy import SQLAlchemy
 import jwt
+from flask_migrate import Migrate
+from utils import APIException, generate_sitemap
 from admin import setup_admin
 from models import User, Pet, Post, Photo, Address, db
-from utils import APIException, generate_sitemap
 from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
@@ -74,8 +73,8 @@ def handle_hello():
 @app.route("/pets", methods=["GET"])
 def get_available_pets():
     pets = Pet.query.filter_by(for_adoption=True).all()
-    if not pets:
-        return jsonify({"response": "No hay mascotas disponibles"}), 404
+    # if not pets:
+    #     return jsonify({"response": "No hay mascotas disponibles"}), 404
     return jsonify([pet.serialize() for pet in pets]), 200
 
 
@@ -122,7 +121,7 @@ def login_user():
     if not user:
         return make_response(
             {
-                "message": "Usuario no encontrado",
+                "response": "Usuario no encontrado",
                 "WWW.Authentication": 'Basic realm: "login required"',
             }
         )
@@ -130,9 +129,11 @@ def login_user():
         token = jwt.encode(
             {
                 "id": user.id,
-                "exp": datetime.datetime.utcnow() + datetime.timedelta(minutes=60),
+                "exp": datetime.datetime.now(datetime.timezone.utc)
+                + datetime.timedelta(minutes=60),
             },
             app.config["SECRET_KEY"],
+            algorithm="HS256",
         )
         return (
             jsonify(
@@ -194,13 +195,15 @@ def manage_pet(active_user):
     new_pet = Pet(
         name=data["name"],
         specie=data["specie"],
-        size=data["size"],
         age=data["age"],
-        message=data["message"],
+        size=data["size"],
         for_adoption=data["for_adoption"],
+        message=data["message"],
     )
     new_pet.add_owner(active_user)
-    new_post = Post(message=data["message"], poster_id=active_user.id)
+    new_post = Post(
+        message=data["message"], poster_id=active_user.id, reference_post_id=None
+    )
     new_pet.add_post(new_post)
     db.session.add(new_pet)
     db.session.commit()
@@ -209,7 +212,7 @@ def manage_pet(active_user):
             {
                 "response": "Registro exitoso",
                 "pet": new_pet.serialize(),
-                "user": active_user.serialize_extended(),
+                "user": active_user.serialize(),
             }
         ),
         200,
@@ -244,6 +247,7 @@ def manage_post(active_user):
     new_post = Post(
         message=data["message"],
         poster_id=active_user.id,
+        reference_post_id=data["reference_post_id"],
     )
     searched_pet = Pet.query.filter(Pet.id == data["pet_id"]).first()
     if not searched_pet:

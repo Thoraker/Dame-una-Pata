@@ -13,6 +13,7 @@ import AboutUs from "./views/about-us.jsx";
 import Auth from "./views/auth.jsx";
 import Adoption from "./views/adoption.jsx";
 import PetForm from "./components/pet-form.jsx";
+import User from "./views/user.jsx";
 
 const router = createBrowserRouter([
   {
@@ -39,6 +40,20 @@ const router = createBrowserRouter([
       {
         path: "/test",
         element: <PetForm />,
+      },
+      {
+        path: "/user",
+        element: <User />,
+        // children: [
+        //   {
+        //     path: "/user/profile",
+        //     element: <Home />,
+        //   },
+        //   {
+        //     path: "/user/settings",
+        //     element: <AboutUs />,
+        //   },
+        // ],
       },
     ],
   },

@@ -23,7 +23,9 @@ const NoUserDropdown = () => {
             <h5 className="dropdown-header">Ingreso</h5>
           </li>
           <li>
-            <Link className="dropdown-item">Ingresa</Link>
+            <Link className="dropdown-item" to="/auth">
+              Ingresa
+            </Link>
           </li>
           <li>
             <Link className="dropdown-item" to="/auth">
