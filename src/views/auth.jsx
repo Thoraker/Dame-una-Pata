@@ -14,7 +14,7 @@ function Auth() {
 
   return (
     <Container containerClasses="my-3">
-      <Card cardClasses="border border-1 rounded m-3 p-3">
+      <Card classes="border border-1 rounded m-3 p-3">
         <div className="row">
           <div className="col-2">
             <ul className="nav flex-column nav-pills" id="myTab" role="tablist">
@@ -57,7 +57,7 @@ function Auth() {
                 aria-labelledby="register-tab"
                 tabIndex="0"
               >
-                <Card title={registerCardAttributes.title} cardClass={"col"}>
+                <Card title={registerCardAttributes.title} classes="col">
                   <Register />
                 </Card>
               </div>
@@ -69,7 +69,7 @@ function Auth() {
                 aria-labelledby="login-tab"
                 tabIndex="0"
               >
-                <Card title={loginCardAttributes.title} cardClass={"col"}>
+                <Card title={loginCardAttributes.title} classes="col">
                   <Login />
                 </Card>
               </div>

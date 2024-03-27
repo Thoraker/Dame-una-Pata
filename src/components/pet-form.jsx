@@ -46,7 +46,7 @@ function PetForm() {
         }}
       >
         <Form>
-          <Card content={petCardProps}>
+          <Card title={petCardProps.title}>
             <MyTextInput
               label="Nombre de la Mascota"
               name="petName"

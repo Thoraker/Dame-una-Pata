@@ -70,6 +70,8 @@ class Pet(db.Model):
     is_active: bool = db.Column(db.Boolean, default=True)
     for_adoption: bool = db.Column(db.Boolean, default=True)
     created_at: str = db.Column(db.DateTime, default=db.func.current_timestamp())
+    last_adoption_date: str = db.Column(db.DateTime, nullable=True)
+    current_location: int = db.Column(db.Integer, nullable=True)
 
     owners = db.relationship("User", secondary=owners_pets, back_populates="pets")
     posts = db.relationship("Post", backref="comments")
@@ -100,11 +102,10 @@ class Pet(db.Model):
             "created_at": self.created_at,
         }
 
-    def add_owner(self, user):
+    def add_owner(self, user, location):
         self.owners.append(user)
-
-    def remove_owner(self, user):
-        self.owners.remove(user)
+        self.last_adoption_date = db.func.current_timestamp()
+        self.current_location = location
 
     def add_post(self, post):
         self.posts.append(post)
@@ -118,23 +119,25 @@ class Address(db.Model):
     number: int = db.Column(db.Integer)
     department: int = db.Column(db.Integer, nullable=True)
     region: int = db.Column(db.Integer)
-    city: int = db.Column(db.Integer)
     commune: int = db.Column(db.Integer)
+    main_residence: bool = db.Column(db.Boolean, default=False)
     is_active: bool = db.Column(db.Boolean, default=True)
     owner_id: str = db.Column(db.String, db.ForeignKey("users.id"))
     created_at: str = db.Column(db.DateTime, default=db.func.current_timestamp())
 
-    def __init__(self, street, number, department, region, city, commune, owner_id):
+    def __init__(
+        self, street, number, department, region, commune, main_residence, owner_id
+    ):
         self.street = street
         self.number = number
         self.department = department
         self.region = region
-        self.city = city
         self.commune = commune
+        self.main_residence = main_residence
         self.owner_id = owner_id
 
     def __repr__(self):
-        return f"<Address {self.street} {self.number} {self.department} {self.region} {self.city} {self.commune}"
+        return f"<Address {self.street} {self.number} {self.department} {self.region} {self.commune}"
 
     def serialize(self):
         return {
@@ -143,7 +146,6 @@ class Address(db.Model):
             "number": self.number,
             "department": self.department,
             "region": self.region,
-            "city": self.city,
             "commune": self.commune,
         }
 

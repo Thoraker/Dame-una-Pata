@@ -4,7 +4,7 @@ import Carousel from "./ui/carousel.jsx";
 
 function PetCard({ pet }) {
   return (
-    <Card title={pet.name} cardClass="col-lg-4">
+    <Card title={pet.name} classes="col-lg-4">
       <Carousel photos={pet.pet_photos} />
       <p>{pet.specie}</p>
       <p>{pet.age}</p>

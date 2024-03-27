@@ -1,10 +1,12 @@
+from ctypes import addressof
 import os
 import datetime
 from functools import wraps
-from flask import Flask, jsonify, make_response, request
+from flask import Flask, jsonify, make_response, request, url_for
 from flask_cors import CORS
 import jwt
 from flask_migrate import Migrate
+from sqlalchemy import exists
 from utils import APIException, generate_sitemap
 from admin import setup_admin
 from models import User, Pet, Post, Photo, Address, db
@@ -63,19 +65,81 @@ def sitemap():
 
 @app.route("/users", methods=["GET"])
 def handle_hello():
-    users = User.query.all()
-    if not users:
-        return jsonify({"response": "No hay usuarios registrados"}), 404
-    response_body = jsonify([user.serialize() for user in users])
-    return (response_body), 200
+    if request.args.get("name") is not None:
+        user = User.query.filter_by(name=request.args.get("name")).first()
+        if not user:
+            return jsonify({"response": "No hay usuarios con ese nombre"}), 404
+        return jsonify({"user": user.serialize()}), 200
+    if request.args.get("page") is not None:
+        users = User.query.paginate(per_page=10, page=int(request.args.get("page")), error_out=True)  # type: ignore
+        return (
+            jsonify(
+                {
+                    "iter": [num for num in users.iter_pages()],
+                    "previous_page": users.prev_num,
+                    "next_page": users.next_num,
+                    "users": [user.serialize() for user in users],
+                    "page": int(request.args.get("page")),  # type: ignore
+                }
+            ),
+            200,
+        )
+    users = User.query.paginate(per_page=10, page=1, error_out=True)  # type: ignore
+    return (
+        jsonify(
+            {
+                "iter": [num for num in users.iter_pages()],
+                "previous_page": users.prev_num,
+                "next_page": users.next_num,
+                "users": [user.serialize() for user in users],
+                "page": 1,
+            }
+        ),
+        200,
+    )
 
 
 @app.route("/pets", methods=["GET"])
-def get_available_pets():
-    pets = Pet.query.filter_by(for_adoption=True).all()
-    # if not pets:
-    #     return jsonify({"response": "No hay mascotas disponibles"}), 404
-    return jsonify([pet.serialize() for pet in pets]), 200
+def get_all_available_pets():
+    if request.args.get("name") is not None:
+        searched_pet = Pet.query.filter_by(name=request.args.get("name")).first()
+        if not searched_pet:
+            return (
+                jsonify({"response": "No hay mascotas disponibles con ese nombre"}),
+                404,
+            )
+        return jsonify({"pet": searched_pet.serialize()}), 200
+    if request.args.get("page") is not None:
+        available_pets = Pet.query.paginate(per_page=10, page=int(request.args.get("page")), error_out=True)  # type: ignore
+        if not available_pets:
+            return jsonify({"response": "No hay mascotas disponibles"}), 404
+        return (
+            jsonify(
+                {
+                    "response": "Registro exitoso",
+                    "iter": [num for num in available_pets.iter_pages()],
+                    "previous_page": available_pets.prev_num,
+                    "next_page": available_pets.next_num,
+                    "pets": [pet.serialize() for pet in available_pets],
+                    "page": int(request.args.get("page")),  # type: ignore
+                }
+            ),
+            200,
+        )
+    available_pets = Pet.query.paginate(per_page=10, page=1, error_out=True)  # type: ignore
+    return (
+        jsonify(
+            {
+                "response": "Registro exitoso",
+                "iter": [num for num in available_pets.iter_pages()],
+                "previous_page": available_pets.prev_num,
+                "next_page": available_pets.next_num,
+                "pets": [pet.serialize() for pet in available_pets],
+                "page": 1,
+            }
+        ),
+        200,
+    )
 
 
 @app.route("/register", methods=["GET", "POST"])
@@ -156,11 +220,11 @@ def manage_address(active_user):
     data = request.get_json()
     new_house = Address(
         street=data["street"],
-        number=data["building_number"],
-        department=data["department_number"],
+        number=data["number"],
+        department=data["number"],
         region=data["region"],
         commune=data["commune"],
-        city=data["city"],
+        main_residence=data["main_residence"],
         owner_id=active_user.id,
     )
     db.session.add(new_house)
@@ -169,23 +233,6 @@ def manage_address(active_user):
         jsonify({"response": "Registro exitoso", "user": active_user.serialize()}),
         200,
     )
-
-
-@app.route("/pet/<string:id>", methods=["GET"])
-def get_pet(id):
-    searched_pet = Pet.query.filter_by(id=id).all()
-    if not searched_pet:
-        return jsonify({"response": "No se encontró la mascota"}), 404
-    else:
-        return (
-            jsonify(
-                {
-                    "response": "Registro exitoso",
-                    "pet": [pet.serialize() for pet in searched_pet],
-                }
-            ),
-            200,
-        )
 
 
 @app.route("/pet", methods=["GET", "POST"])
@@ -200,7 +247,8 @@ def manage_pet(active_user):
         for_adoption=data["for_adoption"],
         message=data["message"],
     )
-    new_pet.add_owner(active_user)
+    location = data["location"]
+    new_pet.add_owner(active_user, location)
     new_post = Post(
         message=data["message"], poster_id=active_user.id, reference_post_id=None
     )

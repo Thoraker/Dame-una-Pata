@@ -6,7 +6,7 @@ import regionCommune from "./data/region-commune.json";
 import MyCheckbox from "./formik-ui/check-box";
 import Card from "./ui/card";
 
-function Address() {
+function AddressForm() {
   const addressProps = {
     title: "Tu Dirección",
   };
@@ -111,4 +111,4 @@ function Address() {
   );
 }
 
-export default Address;
+export default AddressForm;

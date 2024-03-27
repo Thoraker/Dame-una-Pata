@@ -23,7 +23,7 @@ function Error() {
         title={cardProps.title}
         img={cardProps.img}
         link={cardProps.link}
-        cardClass={cardProps.class}
+        classes={cardProps.class}
       >
         Ha ocurrido un error inesperado pero no te preocupes aquí hay un
         cachorro

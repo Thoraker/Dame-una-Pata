@@ -8,7 +8,6 @@ export const useStore = create((set) => ({
   createUser: async (values) => {
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
-    myHeaders.append("Access-Control-Allow-Origin", "http://127.0.0.1:5000");
 
     const raw = JSON.stringify({
       name: values.user,
@@ -39,7 +38,6 @@ export const useStore = create((set) => ({
   login: async (values) => {
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
-    myHeaders.append("Access-Control-Allow-Origin", "http://127.0.0.1:5000");
 
     const raw = JSON.stringify({
       name: values.user,
@@ -77,7 +75,7 @@ export const useStore = create((set) => ({
         requestOptions
       );
       const result = await response.json();
-      console.log(result);
+      set({ pets: result.token, user: result.user });
     } catch (error) {
       console.error(error);
     }

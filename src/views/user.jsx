@@ -1,6 +1,9 @@
 import { useStore } from "../store/data-storage";
 import Container from "../components/ui/container";
 import Card from "../components/ui/card";
+import PetForm from "../components/pet-form";
+import AddressForm from "../components/address-form";
+import Register from "../components/register-form";
 
 function User() {
   const user = useStore((state) => state.user);
@@ -67,7 +70,11 @@ function User() {
                 aria-labelledby="info-tab"
                 tabIndex="0"
               >
-                <Card cardClass={"col"}>info</Card>
+                <Card classes="col">
+                  <fieldset disabled>
+                    <Register />
+                  </fieldset>
+                </Card>
               </div>
               <div
                 className="tab-pane fade"
@@ -76,7 +83,9 @@ function User() {
                 aria-labelledby="pets-tab"
                 tabIndex="0"
               >
-                <Card cardClass={"col"}>pets</Card>
+                <Card classes="col">
+                  <PetForm />
+                </Card>
               </div>
               <div className="tab-content" id="myTabContent">
                 <div
@@ -86,7 +95,9 @@ function User() {
                   aria-labelledby="address-tab"
                   tabIndex="0"
                 >
-                  <Card cardClass={"col"}>address</Card>
+                  <Card classes="col">
+                    <AddressForm />
+                  </Card>
                 </div>
               </div>
             </div>
